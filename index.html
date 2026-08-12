@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angie's Bakery Collection - Master Formulas & Sales Playbook</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        bakery: {
+                            50: '#FDFBF7',
+                            100: '#F7F1E5',
+                            200: '#EBDCBF',
+                            300: '#DCC395',
+                            400: '#CDA76B',
+                            500: '#B88E44',
+                            600: '#946E31',
+                            700: '#715024',
+                            800: '#4D3418',
+                            900: '#2A1A0B',
+                        },
+                        cocoa: {
+                            800: '#2B1B17',
+                            900: '#1A0F0D',
+                        },
+                        ruby: '#C04851',
+                        matcha: '#4A6B38',
+                        gold: '#D4AF37'
+                    },
+                    fontFamily: {
+                        sans: ['Kanit', 'Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        display: ['Outfit', 'Kanit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Kanit', 'Outfit', sans-serif;
+            background-color: #FDFBF7;
+            color: #2A1A0B;
+        }
+        .dark body {
+            background-color: #120A07;
+            color: #F7F1E5;
+        }
+        .glass-panel {
+            background: rgba(255, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(220, 195, 149, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 18, 14, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 110, 49, 0.2);
+        }
+        .recipe-card-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #FAF5EC 100%);
+        }
+        .dark .recipe-card-gradient {
+            background: linear-gradient(135deg, #1E120E 0%, #2A1A0B 100%);
+        }
+        .amber-glow {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+        }
+    </style>
+</head>
+<body class="transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-panel shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showTab('overview')">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-bakery-600 to-amber-400 flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-cookie-bite text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif text-2xl font-bold tracking-tight text-bakery-900 dark:text-bakery-100">Angie's</span>
+                        <span class="text-xs uppercase tracking-widest block text-bakery-600 dark:text-bakery-400 font-semibold">Artisan Bakery Collection</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Tabs -->
+                <nav class="hidden lg:flex space-x-1 font-medium text-sm">
+                    <button onclick="showTab('overview')" id="nav-overview" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-house mr-1.5"></i> ภาพรวมร้าน
+                    </button>
+                    <button onclick="showTab('formulas')" id="nav-formulas" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-kitchen-set mr-1.5 text-amber-600"></i> สูตรคุกกี้ทั้งหมด (Formulas)
+                    </button>
+                    <button onclick="showTab('dialogue')" id="nav-dialogue" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-comments mr-1.5 text-blue-500"></i> บทพูดขายหน้าร้าน
+                    </button>
+                    <button onclick="showTab('ingredients')" id="nav-ingredients" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-crown mr-1.5 text-amber-500"></i> วัตถุดิบระดับโลก
+                    </button>
+                    <button onclick="showTab('sweetness')" id="nav-sweetness" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-cube mr-1.5 text-pink-500"></i> ระดับความหวาน
+                    </button>
+                    <button onclick="showTab('psychology')" id="nav-psychology" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-lightbulb mr-1.5 text-yellow-500"></i> จิตวิทยาการขาย
+                    </button>
+                </nav>
+
+                <!-- Action Controls -->
+                <div class="flex items-center space-x-3">
+                    <button id="theme-toggle" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-bakery-100 dark:bg-cocoa-800 text-bakery-800 dark:text-bakery-200 hover:scale-105 transition" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:inline text-amber-400"></i>
+                    </button>
+
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl bg-bakery-100 dark:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-bakery-200 dark:border-cocoa-800 bg-bakery-50 dark:bg-cocoa-900 px-4 pt-3 pb-6 space-y-2">
+            <button onclick="showTab('overview'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
+                <i class="fa-solid fa-house mr-2"></i> ภาพรวมร้าน
+            </button>
+            <button onclick="showTab('formulas'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
+                <i class="fa-solid fa-kitchen-set mr-2 text-amber-600"></i> สูตรคุกกี้ทั้งหมด (Formulas)
+            </button>
+            <button onclick="showTab('dialogue'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
+                <i class="fa-solid fa-comments mr-2 text-blue-500"></i> บทพูดขายหน้าร้าน
+            </button>
+            <button onclick="showTab('ingredients'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
+                <i class="fa-solid fa-crown mr-2 text-amber-500"></i> วัตถุดิบระดับโลก
+            </button>
+            <button onclick="showTab('sweetness'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
+                <i class="fa-solid fa-cube mr-2 text-pink-500"></i> ระดับความหวาน
+            </button>
+            <button onclick="showTab('psychology'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
+                <i class="fa-solid fa-lightbulb mr-2 text-yellow-500"></i> จิตวิทยาการขาย & คติพจน์
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- TAB 1: OVERVIEW -->
+        <section id="tab-overview" class="tab-content space-y-12">
+            <!-- Hero Banner -->
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-cocoa-900 border border-bakery-400/20">
+                <img src="assets/hero_banner.jpg" alt="Angie's Bakery" class="w-full h-80 sm:h-96 object-cover opacity-60">
+                <div class="absolute inset-0 bg-gradient-to-t from-cocoa-900 via-cocoa-900/50 to-transparent p-6 sm:p-12 flex flex-col justify-end">
+                    <div class="inline-flex items-center space-x-2 bg-amber-500/20 border border-amber-400/30 backdrop-blur-md px-3.5 py-1.5 rounded-full text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 w-fit">
+                        <i class="fa-solid fa-certificate"></i> Premium Artisanal Recipes
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
+                        Angie's Bakery Master Hub
+                    </h1>
+                    <p class="mt-2 text-bakery-200 max-w-2xl text-sm sm:text-base font-light">
+                        คลังสูตรคุกกี้ทำมือระดับพรีเมียม วัตถุดิบนำเข้าระดับโลกจากฝรั่งเศสและเบลเยียม พร้อมคู่มือบทพูดการขายและเทคนิคจิตวิทยาสำหรับหน้าร้านครบวงจร
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-4">
+                        <button onclick="showTab('formulas')" class="bg-gradient-to-r from-amber-500 to-bakery-600 text-white font-medium px-6 py-3 rounded-2xl shadow-lg hover:brightness-110 transition flex items-center space-x-2">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>ดูสูตรคุกกี้ทั้งหมด (Formulas)</span>
+                        </button>
+                        <button onclick="showTab('dialogue')" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-medium px-6 py-3 rounded-2xl border border-white/20 transition flex items-center space-x-2">
+                            <i class="fa-solid fa-comments"></i>
+                            <span>เปิดคู่มือบทพูดขาย</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Metrics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-panel p-6 rounded-2xl border text-center space-y-1 hover:border-amber-400 transition">
+                    <div class="text-3xl font-bold font-serif text-amber-600 dark:text-amber-400">9</div>
+                    <div class="text-xs text-bakery-700 dark:text-bakery-300 font-medium">สูตรคุกกี้ & ซอสหลัก</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border text-center space-y-1 hover:border-amber-400 transition">
+                    <div class="text-3xl font-bold font-serif text-red-600 dark:text-red-400">100%</div>
+                    <div class="text-xs text-bakery-700 dark:text-bakery-300 font-medium">เนยสดแท้ไร้ไขมันทรานส์</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border text-center space-y-1 hover:border-amber-400 transition">
+                    <div class="text-3xl font-bold font-serif text-blue-600 dark:text-blue-400">🇫🇷 & 🇧🇪</div>
+                    <div class="text-xs text-bakery-700 dark:text-bakery-300 font-medium">Cacao Barry & Callebaut</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border text-center space-y-1 hover:border-amber-400 transition">
+                    <div class="text-3xl font-bold font-serif text-emerald-600 dark:text-emerald-400">1-5 ⭐️</div>
+                    <div class="text-xs text-bakery-700 dark:text-bakery-300 font-medium">Sweetness Meter</div>
+                </div>
+            </div>
+
+            <!-- Highlights Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-3xl space-y-4 hover:shadow-xl transition">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-serif">ระบบคำนวณอัตราส่วนสูตร (Recipe Scaler)</h3>
+                    <p class="text-sm text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        คำนวณน้ำหนักวัตถุดิบอัตโนมัติตามขนาดแบทช์ 1x, 2x, 5x หรือป้อนตัวคูณปรับเองได้ตามต้องการ แม่นยำทุกกรัม
+                    </p>
+                    <button onclick="showTab('formulas')" class="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline inline-flex items-center">
+                        ทดลองคำนวณสูตร <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl space-y-4 hover:shadow-xl transition">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-serif">คู่มือบทพูด & Q&A หน้าร้าน</h3>
+                    <p class="text-sm text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        บทพูดเปิดการขาย ทริคทักทายลูกค้า การเชิญชวน และการตอบคำถามข้อสงสัยเรื่องความหวาน วัตถุดิบ และความคุ้มค่า
+                    </p>
+                    <button onclick="showTab('dialogue')" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center">
+                        อ่านบทพูดขาย <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl space-y-4 hover:shadow-xl transition">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-serif">จิตวิทยา & ป้ายข้อความดึงดูด</h3>
+                    <p class="text-sm text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        เทคนิคการปิดขายด้วยกล่อง 4 ชิ้น, สโลแกนสำหรับเขียนป้ายกระดานดำหน้าร้าน และข้อความสกรีนการ์ดแบรนด์
+                    </p>
+                    <button onclick="showTab('psychology')" class="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:underline inline-flex items-center">
+                        ดูจิตวิทยาการขาย <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: MASTER COOKIE FORMULAS -->
+        <section id="tab-formulas" class="tab-content hidden space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-bakery-200 dark:border-cocoa-800 pb-6">
+                <div>
+                    <h2 class="text-3xl font-serif font-bold tracking-tight">Master Cookie Formulas</h2>
+                    <p class="text-sm text-bakery-600 dark:text-bakery-400">สูตรคุกกี้ทำมือและซอสท็อปปิ้งทั้งหมด ปรับคำนวณอัตราส่วนตามขนาดแบทช์ได้ทันที</p>
+                </div>
+
+                <!-- Batch Scaler Controls -->
+                <div class="glass-panel p-2 rounded-2xl flex items-center space-x-2 border border-amber-400/30">
+                    <span class="text-xs font-semibold uppercase px-2 text-bakery-700 dark:text-bakery-300"><i class="fa-solid fa-calculator mr-1"></i> Scale Batch:</span>
+                    <button onclick="setBatchScale(1)" id="btn-scale-1" class="scale-btn active px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-white transition">1x</button>
+                    <button onclick="setBatchScale(2)" id="btn-scale-2" class="scale-btn px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-bakery-200 dark:hover:bg-cocoa-800 transition">2x</button>
+                    <button onclick="setBatchScale(5)" id="btn-scale-5" class="scale-btn px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-bakery-200 dark:hover:bg-cocoa-800 transition">5x</button>
+                    <div class="flex items-center space-x-1 pl-2 border-l border-bakery-300 dark:border-cocoa-700">
+                        <input type="number" id="custom-scale-input" step="0.1" min="0.1" max="100" value="1" onchange="setCustomScale(this.value)" class="w-16 px-2 py-1 text-xs rounded-lg border border-bakery-300 dark:border-cocoa-700 bg-white dark:bg-cocoa-900 text-center font-bold">
+                        <span class="text-xs text-bakery-500">เท่า</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Category Filters -->
+            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterFormulas('all')" class="formula-filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-bakery-800 dark:bg-bakery-200 text-white dark:text-bakery-900 transition">ทั้งหมด (All)</button>
+                    <button onclick="filterFormulas('choc')" class="formula-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-bakery-100 dark:bg-cocoa-800 text-bakery-800 dark:text-bakery-200 hover:bg-bakery-200 transition">ช็อกโกแลต</button>
+                    <button onclick="filterFormulas('nut')" class="formula-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-bakery-100 dark:bg-cocoa-800 text-bakery-800 dark:text-bakery-200 hover:bg-bakery-200 transition">ถั่ว & พิสตาชิโอ</button>
+                    <button onclick="filterFormulas('special')" class="formula-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-bakery-100 dark:bg-cocoa-800 text-bakery-800 dark:text-bakery-200 hover:bg-bakery-200 transition">คอร์นเฟลก & รูบี้</button>
+                    <button onclick="filterFormulas('sub')" class="formula-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-400/40 hover:bg-amber-500/30 transition">ซอส & ท็อปปิ้ง (Sub-recipes)</button>
+                </div>
+
+                <div class="w-full sm:w-64 relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-xs text-bakery-400"></i>
+                    <input type="text" id="search-formulas" onkeyup="searchFormulas()" placeholder="ค้นหาสูตร หรือส่วนผสม..." class="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-bakery-300 dark:border-cocoa-700 bg-white dark:bg-cocoa-900 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+            </div>
+
+            <!-- Formulas Grid Container -->
+            <div id="formulas-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Recipe Cards rendered dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 3: CUSTOMER DIALOGUE SCRIPTS -->
+        <section id="tab-dialogue" class="tab-content hidden space-y-8">
+            <div class="border-b border-bakery-200 dark:border-cocoa-800 pb-6">
+                <h2 class="text-3xl font-serif font-bold tracking-tight">Store Dialogue & Sales Scripts</h2>
+                <p class="text-sm text-bakery-600 dark:text-bakery-400">คู่มือบทพูดเปิดการขาย ตอบคำถามลูกค้า และเทคนิคการปิดขายหน้าร้านสำหรับพนักงาน</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Sidebar Category Links -->
+                <div class="space-y-3">
+                    <div class="glass-panel p-4 rounded-2xl space-y-2 sticky top-28">
+                        <div class="text-xs font-bold uppercase tracking-wider text-bakery-500 px-3">หมวดหมู่บทพูด</div>
+                        <button onclick="showDialogueGroup('greetings')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium text-sm hover:bg-bakery-200 dark:hover:bg-cocoa-800 transition flex items-center justify-between">
+                            <span><i class="fa-solid fa-hand-sparkles mr-2 text-amber-500"></i> 1. ทักทาย & ดึงดูด (5-Sec Hook)</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                        <button onclick="showDialogueGroup('bestseller')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium text-sm hover:bg-bakery-200 dark:hover:bg-cocoa-800 transition flex items-center justify-between">
+                            <span><i class="fa-solid fa-star mr-2 text-amber-400"></i> 2. ชูรสขายดี & แนะนำรสชาติ</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                        <button onclick="showDialogueGroup('story')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium text-sm hover:bg-bakery-200 dark:hover:bg-cocoa-800 transition flex items-center justify-between">
+                            <span><i class="fa-solid fa-gem mr-2 text-blue-500"></i> 3. เรื่องเล่าความพิเศษร้าน</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                        <button onclick="showDialogueGroup('qna')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium text-sm hover:bg-bakery-200 dark:hover:bg-cocoa-800 transition flex items-center justify-between">
+                            <span><i class="fa-solid fa-circle-question mr-2 text-emerald-500"></i> 4. Q&A ตอบข้อสงสัย</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                        <button onclick="showDialogueGroup('upsell')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium text-sm hover:bg-bakery-200 dark:hover:bg-cocoa-800 transition flex items-center justify-between">
+                            <span><i class="fa-solid fa-box-open mr-2 text-purple-500"></i> 5. ปิดขายยกกล่อง (Box Upsell)</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Dialogue Cards Area -->
+                <div class="lg:col-span-2 space-y-6" id="dialogue-container">
+                    <!-- Dialogue cards rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: PREMIUM INGREDIENTS SHOWCASE -->
+        <section id="tab-ingredients" class="tab-content hidden space-y-8">
+            <div class="border-b border-bakery-200 dark:border-cocoa-800 pb-6">
+                <div class="inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-400/30 px-3 py-1 rounded-full text-amber-600 dark:text-amber-400 text-xs font-bold uppercase mb-2">
+                    <i class="fa-solid fa-award"></i> World-Class Ingredients
+                </div>
+                <h2 class="text-3xl font-serif font-bold tracking-tight">วัตถุดิบระดับโลก (French & Belgian Masters)</h2>
+                <p class="text-sm text-bakery-600 dark:text-bakery-400">จุดเด่นของโกโก้ ช็อกโกแลตกูแวร์ตัวร์แท้ และเนยสดที่เรานำมาสร้างสรรค์ทุกชิ้น</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cacao Barry Extra Brute -->
+                <div class="glass-panel p-6 rounded-3xl border border-amber-500/30 space-y-4 hover:shadow-xl transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl">🇫🇷</span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-amber-500/20 text-amber-700 dark:text-amber-300 rounded-full">100% Dutch Process</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif text-amber-800 dark:text-amber-300">Cacao Barry Extra Brute</h3>
+                        <div class="text-xs text-bakery-500 font-semibold">ผงโกโก้พรีเมียมจากฝรั่งเศส (French Cocoa)</div>
+                    </div>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        ผงโกโก้สีน้ำตาลแดงอันเป็นเอกลักษณ์ กลิ่นหอมเข้มข้นนุ่มลึก ให้มิติความอร่อยของโกโก้แท้โดยไม่มีความขมโดดบาดคอ
+                    </p>
+                    <div class="bg-bakery-100 dark:bg-cocoa-800 p-3 rounded-xl border-l-4 border-amber-500 text-xs italic">
+                        "โกโก้ตัวนี้ทำให้แป้งคุกกี้หอมละมุนเข้มข้นแบบฝรั่งเศสแท้ๆ ครับ"
+                    </div>
+                </div>
+
+                <!-- Cacao Barry Mi-Amère 58% -->
+                <div class="glass-panel p-6 rounded-3xl border border-red-500/30 space-y-4 hover:shadow-xl transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl">🇫🇷</span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-red-500/20 text-red-700 dark:text-red-300 rounded-full">58% Dark Couverture</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif text-red-800 dark:text-red-300">Cacao Barry Mi-Amère 58%</h3>
+                        <div class="text-xs text-bakery-500 font-semibold">ดาร์กช็อกโกแลตแท้กูแวร์ตัวร์ (French Dark Choc)</div>
+                    </div>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        ดาร์กช็อกโกแลตพรีเมียมจากฝรั่งเศส มีปริมาณเนยโกโก้สูง ละลายในปาก รสชาติกลมกล่อม หวานน้อย ตัดรสเนยได้อย่างสมบูรณ์แบบ
+                    </p>
+                    <div class="bg-bakery-100 dark:bg-cocoa-800 p-3 rounded-xl border-l-4 border-red-500 text-xs italic">
+                        "รสเข้มกลมกล่อม หวานกำลังดี ไม่หวานจัดสไตล์กูแวร์ตัวร์แท้"
+                    </div>
+                </div>
+
+                <!-- Callebaut White Couverture 28% -->
+                <div class="glass-panel p-6 rounded-3xl border border-yellow-500/30 space-y-4 hover:shadow-xl transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl">🇧🇪</span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 rounded-full">28.0% White Couverture</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif text-yellow-800 dark:text-yellow-300">Callebaut White 28.0%</h3>
+                        <div class="text-xs text-bakery-500 font-semibold">ไวท์ช็อกโกแลตแท้กูแวร์ตัวร์ (Belgian White Choc)</div>
+                    </div>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        ทำจาก Cocoa Butter แท้ 100% ปราศจากน้ำมันพืช หอมกลิ่นนมเนยสดละมุนลิ้น ไม่หวานเลี่ยนเหมือนไวท์ช็อกทั่วไป
+                    </p>
+                    <div class="bg-bakery-100 dark:bg-cocoa-800 p-3 rounded-xl border-l-4 border-yellow-500 text-xs italic">
+                        "หอมกลิ่นนมเนยสดแท้ ละมุนลิ้น ไม่หวานเลี่ยน"
+                    </div>
+                </div>
+
+                <!-- Callebaut Ruby 33.6% -->
+                <div class="glass-panel p-6 rounded-3xl border border-pink-500/30 space-y-4 hover:shadow-xl transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl">🇧🇪</span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-pink-500/20 text-pink-700 dark:text-pink-300 rounded-full">33.6% Ruby RB1</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif text-pink-800 dark:text-pink-300">Callebaut Ruby Chocolate</h3>
+                        <div class="text-xs text-bakery-500 font-semibold">ช็อกโกแลตสีชมพูธรรมชาติ (Ruby Bean)</div>
+                    </div>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        ช็อกโกแลตชนิดที่ 4 ของโลก ทำจากเมล็ดรูบี้โกโก้โดยไม่แต่งสีหรือแต่งกลิ่น ให้รสชาติเบอร์รี่สดเปรี้ยวหวานธรรมชาติ
+                    </p>
+                    <div class="bg-bakery-100 dark:bg-cocoa-800 p-3 rounded-xl border-l-4 border-pink-500 text-xs italic">
+                        "รสสัมผัสอมเปรี้ยวอมหวานแบบเบอร์รี่สดธรรมชาติ"
+                    </div>
+                </div>
+
+                <!-- Homemade Pistachio Praline -->
+                <div class="glass-panel p-6 rounded-3xl border border-emerald-500/30 space-y-4 hover:shadow-xl transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl">🟢</span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 rounded-full">In-House Small Batch</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif text-emerald-800 dark:text-emerald-300">Homemade Pistachio Praline</h3>
+                        <div class="text-xs text-bakery-500 font-semibold">ซอสพราลีนพิสตาชิโอเคี่ยวเองสดๆ</div>
+                    </div>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        อบถั่วพิสตาชิโอสด ปั่นละเอียดผสมน้ำมันรำข้าว หัวนมผง และเกลือ ให้รสชาติความหอมมันนัว เข้มข้นระดับกูร์เมต์
+                    </p>
+                    <div class="bg-bakery-100 dark:bg-cocoa-800 p-3 rounded-xl border-l-4 border-emerald-500 text-xs italic">
+                        "พราลีนถั่วพิสตาชิโอทำเองในร้าน กลิ่นหอมมันนัวชวนหลงใหล"
+                    </div>
+                </div>
+
+                <!-- Pure Salted Butter & Handcrafted Toffee -->
+                <div class="glass-panel p-6 rounded-3xl border border-amber-600/30 space-y-4 hover:shadow-xl transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl">🧈</span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-amber-600/20 text-amber-800 dark:text-amber-200 rounded-full">Handcrafted Toffee</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold font-serif text-amber-900 dark:text-amber-200">Pure Butter & Salted Toffee</h3>
+                        <div class="text-xs text-bakery-500 font-semibold">เนยสดแท้ 100% & ทอฟฟี่เนยสดเคี่ยวเอง</div>
+                    </div>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        ปราศจากไขมันทรานส์ ใช้ทอฟฟี่เนยสดเคี่ยวอุณหภูมิ 149-154°C ให้ความกรอบหอมคาราเมลและดอกเกลือตัดรส
+                    </p>
+                    <div class="bg-bakery-100 dark:bg-cocoa-800 p-3 rounded-xl border-l-4 border-amber-600 text-xs italic">
+                        "เนยสดแท้ 100% หอมมัน ปลอดภัยต่อสุขภาพ"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: SWEETNESS METER -->
+        <section id="tab-sweetness" class="tab-content hidden space-y-8">
+            <div class="border-b border-bakery-200 dark:border-cocoa-800 pb-6">
+                <h2 class="text-3xl font-serif font-bold tracking-tight">Sweetness Meter & Recommendations</h2>
+                <p class="text-sm text-bakery-600 dark:text-bakery-400">ระบบจัดระดับความหวานแบบเปรียบเทียบ 1-5 ดาว แก้ปัญหาความชอบความหวานไม่เท่ากันของลูกค้า</p>
+            </div>
+
+            <!-- Sweetness Cards Grid -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Level 2/5 -->
+                <div class="glass-panel p-6 rounded-3xl border-2 border-emerald-500/40 space-y-4 relative overflow-hidden">
+                    <div class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full w-fit">
+                        ⭐️⭐️ (ระดับ 2 / 5 - เข้มข้น หวานน้อยสุด)
+                    </div>
+                    <h3 class="text-xl font-bold font-serif">Dark Chocolate 58% & Pistachio</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        รสชาติเข้มข้น นำด้วยความขมนุ่มของผงโกโก้ Cacao Barry จากฝรั่งเศส และความมันหอมของถั่วพิสตาชิโอ เหมาะกับคนชอบทานหวานน้อย
+                    </p>
+                    <div class="text-xs bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 p-3 rounded-xl">
+                        💡 <strong>บทพูดแนะนำ:</strong> "ถ้าลูกค้าชอบทานหวานน้อย แนะนำตัวนี้เลยครับ รสชาติจะออกเข้มข้นมันหอม นำความหวานครับ"
+                    </div>
+                </div>
+
+                <!-- Level 3/5 -->
+                <div class="glass-panel p-6 rounded-3xl border-2 border-amber-500/40 space-y-4 relative overflow-hidden">
+                    <div class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full w-fit">
+                        ⭐️⭐️⭐️ (ระดับ 3 / 5 - กลมกล่อม หวานกำลังดี)
+                    </div>
+                    <h3 class="text-xl font-bold font-serif">Red Velvet CC & Chocolate Ruby</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        แป้งโกโก้ Red Velvet หอมนุ่มตัดกับช็อกโกแลตชิพส์ หรือรสชาติอมเปรี้ยวอมหวานเบอร์รี่สดธรรมชาติของ Ruby Chocolate
+                    </p>
+                    <div class="text-xs bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 p-3 rounded-xl">
+                        💡 <strong>บทพูดแนะนำ:</strong> "รสชาตินี้กลมกล่อมกำลังดีครับ ได้ความหอมเข้มโกโก้ตัดกับช็อกโกแลตชิพส์ ไม่หวานเลี่ยน"
+                    </div>
+                </div>
+
+                <!-- Level 4/5 -->
+                <div class="glass-panel p-6 rounded-3xl border-2 border-purple-500/40 space-y-4 relative overflow-hidden">
+                    <div class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full w-fit">
+                        ⭐️⭐️⭐️⭐️ (ระดับ 4 / 5 - หวานฉ่ำ ละมุนฟิน)
+                    </div>
+                    <h3 class="text-xl font-bold font-serif">Hazelnut Nutella & Toffee Caramel</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                        หวานนุ่ม ฉ่ำเยิ้มด้วยไส้นูเทลล่าแท้ หรือทอฟฟี่เนยสดคาราเมลสไตล์อเมริกันคุกกี้แท้ สายขนมหวานจะต้องหลงรัก
+                    </p>
+                    <div class="text-xs bg-purple-50 dark:bg-purple-950/40 text-purple-800 dark:text-purple-300 p-3 rounded-xl">
+                        💡 <strong>บทพูดแนะนำ:</strong> "ถ้าชอบไส้เยิ้มๆ หวานนุ่มละมุน แนะนำ Nutella หรือ Toffee เลยครับ ทานคู่กาแฟดำอร่อยเป๊ะมาก"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drink Pairings Box -->
+            <div class="glass-panel p-8 rounded-3xl bg-gradient-to-r from-amber-500/10 via-bakery-500/10 to-amber-600/10 border border-amber-400/30 space-y-4">
+                <h3 class="text-xl font-bold font-serif flex items-center space-x-2">
+                    <i class="fa-solid fa-mug-hot text-amber-600"></i>
+                    <span>Drink Pairing Solution (จับคู่เครื่องดื่มแก้เลี่ยน)</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-bakery-700 dark:text-bakery-300 leading-relaxed">
+                    หากลูกค้ากลัวหวานเกินไป ให้แนะนำจับคู่กับเครื่องดื่ม: <strong>"ถ้าทานคู่กับกาแฟดำ Americano ชาร้อน หรือนมสดไม่ใส่น้ำตาล ความเข้มของเครื่องดื่มจะตัดกับความหวานนุ่มของคุกกี้พอดี กลมกล่อมระดับพรีเมียมเลยครับ!"</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- TAB 6: SALES PSYCHOLOGY & QUOTES -->
+        <section id="tab-psychology" class="tab-content hidden space-y-8">
+            <div class="border-b border-bakery-200 dark:border-cocoa-800 pb-6">
+                <h2 class="text-3xl font-serif font-bold tracking-tight">Sales Psychology & Catchy Quotes</h2>
+                <p class="text-sm text-bakery-600 dark:text-bakery-400">เทคนิคจิตวิทยาการขายหน้าร้าน พร้อมคติพจน์สำหรับเขียนกระดานดำและโซเชียลมีเดีย</p>
+            </div>
+
+            <!-- 5 Psychology Hacks -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-3xl space-y-3 hover:border-amber-400 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">1</div>
+                    <h3 class="font-bold text-lg">Alternative Choice Framing</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300">
+                        อย่าถามว่า *"รับคุกกี้ไหมคะ?"* (ลูกค้าตอบปฏิเสธง่าย) ให้ถามว่า <strong>"วันนี้สนใจเป็นดาร์กช็อกโกแลตฝรั่งเศส หรือพิสตาชิโอดีครับ?"</strong>
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl space-y-3 hover:border-amber-400 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">2</div>
+                    <h3 class="font-bold text-lg">Tomorrow Morning Coffee Hook</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300">
+                        <strong>"แนะนำเพิ่มอีกชิ้นไว้ทานคู่กาแฟเช้าวันพรุ่งนี้ครับ เข้าเวฟ 10 วินาที ได้คุกกี้อุ่นๆ ทานคู่กาแฟเช้าฟินมากครับ"</strong> (เพิ่มยอดขายทันที)
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl space-y-3 hover:border-amber-400 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">3</div>
+                    <h3 class="font-bold text-lg">Break & Reveal Visual Demo</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300">
+                        บิโชว์คุกกี้ไส้นูเทลล่าเยิ้มๆ วางไว้ตรงกลางตู้กระจก 1 ชิ้น การเห็นไส้เยิ้มจริงกระตุ้นความอยากทานได้แรงกว่าคำพูด 10 เท่า!
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl space-y-3 hover:border-amber-400 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">4</div>
+                    <h3 class="font-bold text-lg">Box Default Anchor</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300">
+                        เมื่อลูกค้าสั่ง 1 ชิ้น ให้ทักว่า <strong>"รับเป็นเซตกล่อง 4 ชิ้นคละรสชาติเลยไหมครับ คุ้มกว่าและได้ลองหลายรสด้วยครับ"</strong>
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl space-y-3 hover:border-amber-400 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">5</div>
+                    <h3 class="font-bold text-lg">Reciprocity Micro-Sampling</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300">
+                        ตัดคุกกี้ชิ้นเล็กๆ ยื่นให้ลูกค้าทดลองชิมขณะรอ การได้รับของขวัญโดยตรงจะกระตุ้นความรู้สึกอยากอุดหนุนตอบแทน
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl space-y-3 hover:border-amber-400 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">6</div>
+                    <h3 class="font-bold text-lg">Gift Angle Positioning</h3>
+                    <p class="text-xs text-bakery-700 dark:text-bakery-300">
+                        <strong>"รับกลับไปทานเอง หรือหิ้วกล่องของขวัญไปฝากคนที่บ้านดีครับ?"</strong> เปลี่ยนคุกกี้ให้เป็นของฝากทรงคุณค่า
+                    </p>
+                </div>
+            </div>
+
+            <!-- Chalkboard Quotes Grid -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-serif font-bold">🏷️ Catchy Quotes สำหรับกระดานดำ & Social Media</h3>
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-2xl bg-cocoa-900 text-amber-200 border border-amber-500/30 text-xs sm:text-sm font-medium relative group cursor-pointer" onclick="copyText('Money can’t buy happiness, but it can buy fresh-baked cookies, and that’s pretty close.')">
+                        "Money can’t buy happiness, but it can buy fresh-baked cookies, and that’s pretty close."
+                        <span class="text-[10px] text-amber-400 block mt-2 opacity-70">คลิกเพื่อคัดลอก</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cocoa-900 text-amber-200 border border-amber-500/30 text-xs sm:text-sm font-medium relative group cursor-pointer" onclick="copyText('A balanced diet is a cookie in each hand.')">
+                        "A balanced diet is a cookie in each hand."
+                        <span class="text-[10px] text-amber-400 block mt-2 opacity-70">คลิกเพื่อคัดลอก</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cocoa-900 text-amber-200 border border-amber-500/30 text-xs sm:text-sm font-medium relative group cursor-pointer" onclick="copyText('Stressed spelled backward is DESSERTS.')">
+                        "Stressed spelled backward is DESSERTS."
+                        <span class="text-[10px] text-amber-400 block mt-2 opacity-70">คลิกเพื่อคัดลอก</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cocoa-900 text-amber-200 border border-amber-500/30 text-xs sm:text-sm font-medium relative group cursor-pointer" onclick="copyText('Baked with real French butter, stuffed with pure joy.')">
+                        "Baked with real French butter, stuffed with pure joy."
+                        <span class="text-[10px] text-amber-400 block mt-2 opacity-70">คลิกเพื่อคัดลอก</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cocoa-900 text-amber-200 border border-amber-500/30 text-xs sm:text-sm font-medium relative group cursor-pointer" onclick="copyText('Warm edges, gooey centers, zero compromises.')">
+                        "Warm edges, gooey centers, zero compromises."
+                        <span class="text-[10px] text-amber-400 block mt-2 opacity-70">คลิกเพื่อคัดลอก</span>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cocoa-900 text-amber-200 border border-amber-500/30 text-xs sm:text-sm font-medium relative group cursor-pointer" onclick="copyText('Handcrafted in small batches, devoured in seconds.')">
+                        "Handcrafted in small batches, devoured in seconds."
+                        <span class="text-[10px] text-amber-400 block mt-2 opacity-70">คลิกเพื่อคัดลอก</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-bakery-200 dark:border-cocoa-800 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-bakery-600 dark:text-bakery-400 space-y-2">
+            <p>© 2026 Angie's Bakery Collection. All rights reserved. Crafted with passion, French Cacao Barry & Belgian Callebaut.</p>
+            <p class="font-mono text-[10px] text-bakery-400 dark:text-bakery-600">Repository: https://github.com/teetawat-2580/Angies-bakery-collection.git</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-bakery-900 text-white px-5 py-3 rounded-2xl shadow-2xl z-50 hidden transition transform translate-y-4 opacity-0 flex items-center space-x-3 text-xs border border-amber-500/40">
+        <i class="fa-solid fa-circle-check text-amber-400 text-base"></i>
+        <span id="toast-msg">Copied to clipboard!</span>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
