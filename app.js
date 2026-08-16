@@ -442,6 +442,43 @@ function setCustomScale(val) {
     }
 }
 
+// Country Flag Renderer Helper (Ensures crisp high-resolution flag graphics render on all OS / Windows browsers)
+function parseFlags(str) {
+    if (!str) return '';
+
+    const flags = {
+        'fr': '<img src="https://flagcdn.com/20x15/fr.png" srcset="https://flagcdn.com/40x30/fr.png 2x" width="18" height="13.5" alt="ฝรั่งเศส" class="inline-block mx-1 rounded-sm shadow-sm" style="vertical-align: -1px;">',
+        'be': '<img src="https://flagcdn.com/20x15/be.png" srcset="https://flagcdn.com/40x30/be.png 2x" width="18" height="13.5" alt="เบลเยียม" class="inline-block mx-1 rounded-sm shadow-sm" style="vertical-align: -1px;">',
+        'jp': '<img src="https://flagcdn.com/20x15/jp.png" srcset="https://flagcdn.com/40x30/jp.png 2x" width="18" height="13.5" alt="ญี่ปุ่น" class="inline-block mx-1 rounded-sm shadow-sm" style="vertical-align: -1px;">',
+        'it': '<img src="https://flagcdn.com/20x15/it.png" srcset="https://flagcdn.com/40x30/it.png 2x" width="18" height="13.5" alt="อิตาลี" class="inline-block mx-1 rounded-sm shadow-sm" style="vertical-align: -1px;">',
+        'mg': '<img src="https://flagcdn.com/20x15/mg.png" srcset="https://flagcdn.com/40x30/mg.png 2x" width="18" height="13.5" alt="มาดากัสการ์" class="inline-block mx-1 rounded-sm shadow-sm" style="vertical-align: -1px;">',
+        'us': '<img src="https://flagcdn.com/20x15/us.png" srcset="https://flagcdn.com/40x30/us.png 2x" width="18" height="13.5" alt="อเมริกา" class="inline-block mx-1 rounded-sm shadow-sm" style="vertical-align: -1px;">',
+        'au': '<img src="https://flagcdn.com/20x15/au.png" srcset="https://flagcdn.com/40x30/au.png 2x" width="18" height="13.5" alt="ออสเตรเลีย" class="inline-block mx-1 rounded-sm shadow-sm" style="vertical-align: -1px;">'
+    };
+
+    let res = str;
+
+    // Replace Unicode flag emojis
+    res = res.replace(/🇫🇷/g, flags.fr);
+    res = res.replace(/🇧🇪/g, flags.be);
+    res = res.replace(/🇯🇵/g, flags.jp);
+    res = res.replace(/🇮🇹/g, flags.it);
+    res = res.replace(/🇲🇬/g, flags.mg);
+    res = res.replace(/🇺🇸/g, flags.us);
+    res = res.replace(/🇦🇺/g, flags.au);
+
+    // Replace country names with flag image if flag image is missing
+    if (res.includes('ฝรั่งเศส') && !res.includes('fr.png')) res = res.replace(/ฝรั่งเศส/g, 'ฝรั่งเศส ' + flags.fr);
+    if (res.includes('เบลเยียม') && !res.includes('be.png')) res = res.replace(/เบลเยียม/g, 'เบลเยียม ' + flags.be);
+    if (res.includes('ญี่ปุ่น') && !res.includes('jp.png')) res = res.replace(/ญี่ปุ่น/g, 'ญี่ปุ่น ' + flags.jp);
+    if (res.includes('อิตาลี') && !res.includes('it.png')) res = res.replace(/อิตาลี/g, 'อิตาลี ' + flags.it);
+    if (res.includes('มาดากัสการ์') && !res.includes('mg.png')) res = res.replace(/มาดากัสการ์/g, 'มาดากัสการ์ ' + flags.mg);
+    if (res.includes('อเมริกา') && !res.includes('us.png')) res = res.replace(/อเมริกา/g, 'อเมริกา ' + flags.us);
+    if (res.includes('ออสเตรเลีย') && !res.includes('au.png')) res = res.replace(/ออสเตรเลีย/g, 'ออสเตรเลีย ' + flags.au);
+
+    return res;
+}
+
 // Formula Renderer
 function renderFormulas() {
     const grid = document.getElementById('formulas-grid');
@@ -459,14 +496,15 @@ function renderFormulas() {
         
         let ingredientsHTML = recipe.ingredients.map(ing => {
             const scaledGrams = (ing.baseGrams * currentScale).toLocaleString('th-TH', { maximumFractionDigits: 1 });
-            const hasFlag = /🇫🇷|🇧🇪|🇯🇵|🇮🇹|🇲🇬|🇺🇸|🇦🇺/.test(ing.name);
+            const nameWithFlags = parseFlags(ing.name);
+            const hasFlag = /fr\.png|be\.png|jp\.png|it\.png|mg\.png|us\.png|au\.png|🇫🇷|🇧🇪|🇯🇵|🇮🇹|🇲🇬|🇺🇸|🇦🇺|ฝรั่งเศส|เบลเยียม|ญี่ปุ่น|อิตาลี|มาดากัสการ์|อเมริกา|ออสเตรเลีย/.test(ing.name);
             const nameStyle = hasFlag 
                 ? 'font-bold text-bakery-900 dark:text-bakery-100' 
                 : 'font-medium';
             
             return `
                 <tr class="border-b border-bakery-200/50 dark:border-cocoa-800/50 text-xs ${hasFlag ? 'bg-amber-500/10 dark:bg-amber-400/10' : ''}">
-                    <td class="py-1.5 px-2 ${nameStyle}">${ing.name}</td>
+                    <td class="py-1.5 px-2 ${nameStyle}">${nameWithFlags}</td>
                     <td class="py-1.5 px-2 text-right font-bold text-amber-700 dark:text-amber-300 whitespace-nowrap">${scaledGrams} ${ing.unit}</td>
                 </tr>
             `;
@@ -475,13 +513,13 @@ function renderFormulas() {
         let stepsHTML = recipe.steps.map((step, idx) => `
             <li class="text-xs text-bakery-700 dark:text-bakery-300 leading-relaxed flex items-start space-x-2">
                 <span class="font-bold text-amber-600 dark:text-amber-400 min-w-[18px]">${idx + 1}.</span>
-                <span>${step}</span>
+                <span>${parseFlags(step)}</span>
             </li>
         `).join('');
 
         const originsBadgeHTML = recipe.origins && recipe.origins.length > 0 ? `
             <div class="flex flex-wrap gap-1.5 pt-1">
-                ${recipe.origins.map(o => `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-500/15 text-amber-900 dark:text-amber-200 border border-amber-400/30 shadow-sm">📍 ${o}</span>`).join('')}
+                ${recipe.origins.map(o => `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-500/15 text-amber-900 dark:text-amber-200 border border-amber-400/30 shadow-sm">📍 ${parseFlags(o)}</span>`).join('')}
             </div>
         ` : '';
 
@@ -512,7 +550,7 @@ function renderFormulas() {
                 </div>
 
                 <div class="text-[11px] text-bakery-600 dark:text-bakery-400 italic">
-                    <i class="fa-solid fa-star text-amber-400 mr-1"></i> ${recipe.heroIngredient}
+                    <i class="fa-solid fa-star text-amber-400 mr-1"></i> ${parseFlags(recipe.heroIngredient)}
                 </div>
 
                 <!-- Ingredients Table -->
@@ -604,9 +642,9 @@ function renderDialogue(groupKey) {
                     <i class="fa-solid fa-copy mr-1"></i> คัดลอกบทพูด
                 </button>
             </div>
-            <h4 class="font-bold text-base text-bakery-900 dark:text-bakery-100">${item.title}</h4>
+            <h4 class="font-bold text-base text-bakery-900 dark:text-bakery-100">${parseFlags(item.title)}</h4>
             <div class="bg-white/80 dark:bg-cocoa-900/80 p-4 rounded-2xl border border-bakery-200 dark:border-cocoa-700 text-sm leading-relaxed text-bakery-800 dark:text-bakery-200 font-medium shadow-inner">
-                ${item.text}
+                ${parseFlags(item.text)}
             </div>
             <div class="text-xs text-bakery-500 italic">
                 💡 <strong>คำแนะนำพนักงาน:</strong> ${item.tip}
