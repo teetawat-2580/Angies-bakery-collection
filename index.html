@@ -104,6 +104,9 @@
                     <button onclick="showTab('formulas')" id="nav-formulas" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
                         <i class="fa-solid fa-kitchen-set mr-1.5 text-amber-600"></i> สูตรคุกกี้ทั้งหมด (Formulas)
                     </button>
+                    <button onclick="showTab('stock-analysis')" id="nav-stock-analysis" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
+                        <i class="fa-solid fa-boxes-stacked mr-1.5 text-emerald-600"></i> เปรียบเทียบสต็อก & วิเคราะห์ (Stock Analysis)
+                    </button>
                     <button onclick="showTab('dialogue')" id="nav-dialogue" class="nav-btn px-4 py-2 rounded-xl transition hover:bg-bakery-100 dark:hover:bg-cocoa-800 text-bakery-800 dark:text-bakery-200">
                         <i class="fa-solid fa-comments mr-1.5 text-blue-500"></i> บทพูดขายหน้าร้าน
                     </button>
@@ -139,6 +142,9 @@
             </button>
             <button onclick="showTab('formulas'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
                 <i class="fa-solid fa-kitchen-set mr-2 text-amber-600"></i> สูตรคุกกี้ทั้งหมด (Formulas)
+            </button>
+            <button onclick="showTab('stock-analysis'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
+                <i class="fa-solid fa-boxes-stacked mr-2 text-emerald-600"></i> เปรียบเทียบสต็อก & วิเคราะห์ (Stock Analysis)
             </button>
             <button onclick="showTab('dialogue'); toggleMobileMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-bakery-100 dark:bg-cocoa-800 font-medium">
                 <i class="fa-solid fa-comments mr-2 text-blue-500"></i> บทพูดขายหน้าร้าน
@@ -627,6 +633,102 @@
                         "Handcrafted in small batches, devoured in seconds."
                         <span class="text-[10px] text-amber-400 block mt-2 opacity-70">คลิกเพื่อคัดลอก</span>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: STOCK COMPARISON & RELATIONSHIP ANALYSIS -->
+        <section id="tab-stock-analysis" class="tab-content hidden space-y-8">
+            <div class="border-b border-bakery-200 dark:border-cocoa-800 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-400/30 px-3 py-1 rounded-full text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase mb-2">
+                        <i class="fa-solid fa-boxes-stacked"></i> Inventory Engine & Dependency Mapping
+                    </div>
+                    <h2 class="text-3xl font-serif font-bold tracking-tight">Stock Comparison & Relationship Analysis</h2>
+                    <p class="text-sm text-bakery-600 dark:text-bakery-400">เปรียบเทียบสต็อกวัตถุดิบ คำนวณจำนวนแบทช์ที่ทำได้ พร้อมระบบแนะนำวัตถุดิบในหมวดหมู่เดียวกันเพื่อนำมาเปรียบเทียบ</p>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <button onclick="clearStockComparison()" class="text-xs font-semibold px-3 py-2 rounded-xl bg-red-500/10 text-red-700 dark:text-red-300 border border-red-400/30 hover:bg-red-500/20 transition">
+                        <i class="fa-solid fa-trash mr-1"></i> ล้างรายการเปรียบเทียบ
+                    </button>
+                    <button onclick="resetStockDefaults()" class="text-xs font-semibold px-3 py-2 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-400/30 hover:bg-amber-500/20 transition">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> โหลดสต็อกตัวอย่าง
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add Stock Control Bar -->
+            <div class="glass-panel p-6 rounded-3xl border border-emerald-500/30 space-y-4 shadow-lg">
+                <h3 class="text-lg font-bold font-serif flex items-center text-bakery-900 dark:text-bakery-100">
+                    <i class="fa-solid fa-plus-circle text-emerald-500 mr-2"></i>
+                    <span>เพิ่มวัตถุดิบเข้าเปรียบเทียบ (Add Stock for Comparison)</span>
+                </h3>
+                <div class="grid sm:grid-cols-12 gap-3 items-center">
+                    <div class="sm:col-span-6">
+                        <label class="block text-xs font-bold text-bakery-700 dark:text-bakery-300 mb-1">เลือกวัตถุดิบ (Select Ingredient):</label>
+                        <select id="stock-ingredient-select" class="w-full text-xs p-2.5 rounded-xl border border-bakery-300 dark:border-cocoa-700 bg-white dark:bg-cocoa-900 text-bakery-900 dark:text-bakery-100 font-medium focus:ring-2 focus:ring-emerald-500">
+                            <!-- Populated dynamically via JS -->
+                        </select>
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-xs font-bold text-bakery-700 dark:text-bakery-300 mb-1">ปริมาณสต็อกที่มี (Grams):</label>
+                        <input type="number" id="stock-amount-input" value="1000" min="1" step="10" class="w-full text-xs p-2.5 rounded-xl border border-bakery-300 dark:border-cocoa-700 bg-white dark:bg-cocoa-900 text-bakery-900 dark:text-bakery-100 font-bold text-center">
+                    </div>
+                    <div class="sm:col-span-3 flex items-end h-full pt-4 sm:pt-0">
+                        <button onclick="addStockFromInput()" class="w-full text-xs font-bold py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md hover:brightness-110 transition flex items-center justify-center space-x-1">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>เพิ่มในตารางเปรียบเทียบ</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Comparison Matrix -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold font-serif flex items-center">
+                        <i class="fa-solid fa-code-compare text-amber-500 mr-2"></i>
+                        <span>ตารางเปรียบเทียบสต็อกวัตถุดิบ (Active Comparison Matrix)</span>
+                    </h3>
+                    <span id="stock-compare-count" class="text-xs font-bold px-2.5 py-1 bg-amber-500/20 text-amber-800 dark:text-amber-200 rounded-full">0 วัตถุดิบ</span>
+                </div>
+
+                <!-- Cards Grid for Comparison Items -->
+                <div id="stock-compare-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Stock Comparison Cards rendered via JS -->
+                </div>
+            </div>
+
+            <!-- Suggested Stock within Same Categories -->
+            <div class="glass-panel p-6 rounded-3xl border border-amber-400/30 space-y-4">
+                <div class="flex items-center justify-between border-b border-bakery-200 dark:border-cocoa-800 pb-3">
+                    <div>
+                        <h3 class="text-lg font-bold font-serif flex items-center text-amber-800 dark:text-amber-300">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i>
+                            <span>แนะนำวัตถุดิบในหมวดหมู่เดียวกันเพื่อนำมาเปรียบเทียบ (Suggested Stock in Same Categories)</span>
+                        </h3>
+                        <p class="text-xs text-bakery-600 dark:text-bakery-400 mt-1">วัตถุดิบหมวดหมู่เดียวกันกับรายการที่คุณกำลังเปรียบเทียบ สามารถกดเพิ่มเข้าตารางเปรียบเทียบได้ใน 1 คลิก</p>
+                    </div>
+                </div>
+
+                <div id="stock-suggestions-grid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Dynamic suggestion cards rendered via JS -->
+                </div>
+            </div>
+
+            <!-- Cross-Recipe Relationship Analysis & Dependency Matrix -->
+            <div class="glass-panel p-8 rounded-3xl border border-blue-500/30 space-y-6">
+                <div class="border-b border-bakery-200 dark:border-cocoa-800 pb-4">
+                    <h3 class="text-2xl font-bold font-serif flex items-center text-blue-900 dark:text-blue-300">
+                        <i class="fa-solid fa-diagram-project mr-2 text-blue-500"></i>
+                        <span>วิเคราะห์ความสัมพันธ์และการใช้วัตถุดิบร่วมกัน (Cross-Recipe Relationship Analysis)</span>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-bakery-600 dark:text-bakery-400 mt-1">แสดงความถี่ของวัตถุดิบสำคัญที่ใช้ซ้ำข้ามสูตรคุกกี้ เพื่อช่วยวางแผนการสั่งซื้อสต็อกวัตถุดิบล่วงหน้า</p>
+                </div>
+
+                <div id="stock-relationship-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Relationship Cards rendered via JS -->
                 </div>
             </div>
         </section>

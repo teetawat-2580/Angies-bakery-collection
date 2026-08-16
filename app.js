@@ -387,6 +387,7 @@ const dialogues = {
 document.addEventListener('DOMContentLoaded', () => {
     renderFormulas();
     renderDialogue('greetings');
+    initStockAnalysis();
 });
 
 // Navigation Controller
@@ -401,6 +402,10 @@ function showTab(tabId) {
 
     const activeNav = document.getElementById(`nav-${tabId}`);
     if (activeNav) activeNav.classList.add('bg-bakery-100', 'dark:bg-cocoa-800', 'font-bold');
+
+    if (tabId === 'stock-analysis') {
+        initStockAnalysis();
+    }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -699,4 +704,339 @@ function showToast(msg) {
         toast.classList.add('translate-y-4', 'opacity-0');
         setTimeout(() => toast.classList.add('hidden'), 300);
     }, 2500);
+}
+
+// ==========================================
+// STOCK COMPARISON & RELATIONSHIP ANALYSIS ENGINE
+// ==========================================
+
+const stockCatalog = [
+    { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', category: 'dairy', categoryName: '🧈 เนย & นมสด', defaultStock: 1500, unit: 'กรัม' },
+    { name: 'ผงโกโก้ Cacao Barry Extra Brute (ฝรั่งเศส 🇫🇷)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', defaultStock: 500, unit: 'กรัม' },
+    { name: 'Cacao Barry Mi-Amère 58% (ฝรั่งเศส 🇫🇷)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', defaultStock: 800, unit: 'กรัม' },
+    { name: 'Callebaut - 57.9% Dark Couverture (เบลเยียม 🇧🇪)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', defaultStock: 1000, unit: 'กรัม' },
+    { name: 'Callebaut Ruby Choc 33.6% RB1 (เบลเยียม 🇧🇪)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', defaultStock: 400, unit: 'กรัม' },
+    { name: 'Callebaut - White Couverture 28.0% (เบลเยียม 🇧🇪)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', defaultStock: 600, unit: 'กรัม' },
+    { name: 'ผงมัทฉะพรีเมียม (Matcha Powder ญี่ปุ่น 🇯🇵)', category: 'matcha', categoryName: '🍵 มัทฉะ & ชา', defaultStock: 250, unit: 'กรัม' },
+    { name: 'Nutella 🇮🇹', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', defaultStock: 900, unit: 'กรัม' },
+    { name: 'พิสตาชิโอปั่นละเอียด (Ground Pistachio)', category: 'nut', categoryName: '🥜 ถั่วพรีเมียม', defaultStock: 350, unit: 'กรัม' },
+    { name: 'แมคคาเดเมีย เม็ดซีก (ออสเตรเลีย 🇦🇺)', category: 'nut', categoryName: '🥜 ถั่วพรีเมียม', defaultStock: 300, unit: 'กรัม' },
+    { name: 'เฮเซลนัทแกะเปลือก (อบตกแต่ง)', category: 'nut', categoryName: '🥜 ถั่วพรีเมียม', defaultStock: 400, unit: 'กรัม' },
+    { name: 'Vanilla Extract (มาดากัสการ์ 🇲🇬)', category: 'flavor', categoryName: '✨ กลิ่น & แต่งรส', defaultStock: 150, unit: 'กรัม' },
+    { name: 'แครนเบอร์รี่ (อเมริกา 🇺🇸)', category: 'fruit', categoryName: '🫐 ผลไม้อบแห้ง', defaultStock: 500, unit: 'กรัม' },
+    { name: 'Whipping Cream แท้ (ฝรั่งเศส 🇫🇷)', category: 'dairy', categoryName: '🧈 เนย & นมสด', defaultStock: 600, unit: 'กรัม' }
+];
+
+let activeStockCompareList = [
+    { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', category: 'dairy', categoryName: '🧈 เนย & นมสด', stockGrams: 1500, unit: 'กรัม' },
+    { name: 'ผงโกโก้ Cacao Barry Extra Brute (ฝรั่งเศส 🇫🇷)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', stockGrams: 500, unit: 'กรัม' },
+    { name: 'Callebaut - 57.9% Dark Couverture (เบลเยียม 🇧🇪)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', stockGrams: 1000, unit: 'กรัม' },
+    { name: 'ผงมัทฉะพรีเมียม (Matcha Powder ญี่ปุ่น 🇯🇵)', category: 'matcha', categoryName: '🍵 มัทฉะ & ชา', stockGrams: 250, unit: 'กรัม' }
+];
+
+function initStockAnalysis() {
+    populateStockDropdown();
+    renderStockComparison();
+    renderStockSuggestions();
+    renderStockRelationships();
+}
+
+function populateStockDropdown() {
+    const select = document.getElementById('stock-ingredient-select');
+    if (!select) return;
+
+    select.innerHTML = '';
+    
+    // Combine stockCatalog and all unique ingredients from recipes
+    const allNames = new Set(stockCatalog.map(s => s.name));
+    recipes.forEach(r => {
+        r.ingredients.forEach(i => allNames.add(i.name));
+    });
+
+    Array.from(allNames).sort().forEach(name => {
+        const option = document.createElement('option');
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+    });
+}
+
+function addStockFromInput() {
+    const select = document.getElementById('stock-ingredient-select');
+    const amountInput = document.getElementById('stock-amount-input');
+    if (!select || !amountInput) return;
+
+    const name = select.value;
+    const grams = parseFloat(amountInput.value) || 500;
+
+    addIngredientToCompare(name, grams);
+}
+
+function addSuggestedStock(name) {
+    const catItem = stockCatalog.find(s => s.name === name);
+    const defaultGrams = catItem ? catItem.defaultStock : 500;
+    addIngredientToCompare(name, defaultGrams);
+}
+
+function addIngredientToCompare(name, grams) {
+    const existingIndex = activeStockCompareList.findIndex(item => item.name === name);
+    if (existingIndex >= 0) {
+        activeStockCompareList[existingIndex].stockGrams += grams;
+        showToast(`อัปเดตสต็อก ${name} เพิ่มอีก ${grams} กรัม`);
+    } else {
+        const catInfo = stockCatalog.find(s => s.name === name) || { category: 'general', categoryName: '📦 วัตถุดิบเบเกอรี่' };
+        activeStockCompareList.push({
+            name: name,
+            category: catInfo.category,
+            categoryName: catInfo.categoryName,
+            stockGrams: grams,
+            unit: 'กรัม'
+        });
+        showToast(`เพิ่ม ${name} ในรายการเปรียบเทียบเรียบร้อย!`);
+    }
+
+    renderStockComparison();
+    renderStockSuggestions();
+}
+
+function removeStockItem(index) {
+    if (index >= 0 && index < activeStockCompareList.length) {
+        const removed = activeStockCompareList.splice(index, 1);
+        showToast(`ลบ ${removed[0].name} ออกจากตารางเปรียบเทียบ`);
+        renderStockComparison();
+        renderStockSuggestions();
+    }
+}
+
+function updateStockAmount(index, newGrams) {
+    const grams = parseFloat(newGrams);
+    if (!isNaN(grams) && grams >= 0 && activeStockCompareList[index]) {
+        activeStockCompareList[index].stockGrams = grams;
+        renderStockComparison();
+    }
+}
+
+function clearStockComparison() {
+    activeStockCompareList = [];
+    showToast('ล้างรายการเปรียบเทียบสต็อกเรียบร้อย');
+    renderStockComparison();
+    renderStockSuggestions();
+}
+
+function resetStockDefaults() {
+    activeStockCompareList = [
+        { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', category: 'dairy', categoryName: '🧈 เนย & นมสด', stockGrams: 1500, unit: 'กรัม' },
+        { name: 'ผงโกโก้ Cacao Barry Extra Brute (ฝรั่งเศส 🇫🇷)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', stockGrams: 500, unit: 'กรัม' },
+        { name: 'Callebaut - 57.9% Dark Couverture (เบลเยียม 🇧🇪)', category: 'choc', categoryName: '🍫 โกโก้ & ช็อกโกแลต', stockGrams: 1000, unit: 'กรัม' },
+        { name: 'ผงมัทฉะพรีเมียม (Matcha Powder ญี่ปุ่น 🇯🇵)', category: 'matcha', categoryName: '🍵 มัทฉะ & ชา', stockGrams: 250, unit: 'กรัม' }
+    ];
+    showToast('โหลดรายการสต็อกตัวอย่างเรียบร้อย');
+    renderStockComparison();
+    renderStockSuggestions();
+}
+
+function renderStockComparison() {
+    const grid = document.getElementById('stock-compare-grid');
+    const countBadge = document.getElementById('stock-compare-count');
+    if (!grid) return;
+
+    if (countBadge) countBadge.innerText = `${activeStockCompareList.length} วัตถุดิบ`;
+
+    if (activeStockCompareList.length === 0) {
+        grid.innerHTML = `
+            <div class="col-span-full text-center py-12 glass-panel rounded-3xl border border-dashed border-bakery-300 dark:border-cocoa-700">
+                <i class="fa-solid fa-boxes-stacked text-4xl text-bakery-400 mb-3 block"></i>
+                <h4 class="text-base font-bold text-bakery-700 dark:text-bakery-300">ยังไม่มีรายการวัตถุดิบในตารางเปรียบเทียบ</h4>
+                <p class="text-xs text-bakery-500 mt-1">เลือกวัตถุดิบด้านบน หรือคลิกรายการที่แนะนำด้านล่างเพื่อเริ่มเปรียบเทียบสต็อก</p>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = '';
+
+    activeStockCompareList.forEach((item, idx) => {
+        // Find recipes using this ingredient
+        const matchingRecipes = recipes.map(r => {
+            const matchedIng = r.ingredients.find(i => i.name.toLowerCase().includes(item.name.toLowerCase()) || item.name.toLowerCase().includes(i.name.toLowerCase()));
+            if (matchedIng) {
+                const maxBatches = Math.floor(item.stockGrams / matchedIng.baseGrams);
+                const maxCookies = maxBatches * r.yieldBase;
+                return {
+                    recipeName: r.name,
+                    recipeNameTh: r.nameTh,
+                    baseGrams: matchedIng.baseGrams,
+                    maxBatches: maxBatches,
+                    maxCookies: maxCookies,
+                    yieldUnit: r.yieldUnit
+                };
+            }
+            return null;
+        }).filter(Boolean);
+
+        let recipeListHTML = matchingRecipes.length > 0 ? matchingRecipes.map(m => `
+            <div class="bg-amber-500/10 dark:bg-amber-400/10 p-2.5 rounded-xl border border-amber-400/20 text-xs space-y-1">
+                <div class="flex items-center justify-between font-bold text-bakery-900 dark:text-bakery-100">
+                    <span>${m.recipeNameTh}</span>
+                    <span class="text-amber-700 dark:text-amber-300 font-mono">${m.baseGrams}g/batch</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-bakery-600 dark:text-bakery-400">
+                    <span>ทำได้สูงสุด: <strong class="text-emerald-600 dark:text-emerald-400 font-bold">${m.maxBatches} แบทช์</strong></span>
+                    <span>(~${m.maxCookies} ชิ้น)</span>
+                </div>
+            </div>
+        `).join('') : `
+            <div class="text-xs text-bakery-500 italic p-2 bg-bakery-100 dark:bg-cocoa-800 rounded-xl text-center">
+                ไม่พบสูตรที่ใช้วัตถุดิบนี้โดยตรงในระบบ
+            </div>
+        `;
+
+        const card = document.createElement('div');
+        card.className = 'recipe-card-gradient rounded-3xl p-6 shadow-lg border border-emerald-500/30 space-y-4 hover:shadow-xl transition flex flex-col justify-between';
+        
+        card.innerHTML = `
+            <div class="space-y-3">
+                <div class="flex items-start justify-between">
+                    <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 rounded-full">
+                        ${item.categoryName || '📦 เบเกอรี่'}
+                    </span>
+                    <button onclick="removeStockItem(${idx})" class="text-xs text-red-500 hover:text-red-700 dark:hover:text-red-400 transition p-1" title="ลบออกจากตาราง">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold font-serif text-bakery-900 dark:text-bakery-100">${parseFlags(item.name)}</h4>
+                </div>
+
+                <!-- Stock Input Field -->
+                <div class="bg-white/80 dark:bg-cocoa-900/80 p-3 rounded-2xl border border-bakery-200 dark:border-cocoa-700 flex items-center justify-between">
+                    <span class="text-xs font-bold text-bakery-700 dark:text-bakery-300">สต็อกคงเหลือ:</span>
+                    <div class="flex items-center space-x-1">
+                        <input type="number" value="${item.stockGrams}" min="0" onchange="updateStockAmount(${idx}, this.value)" class="w-20 px-2 py-1 text-xs font-bold text-center rounded-lg border border-amber-400 bg-amber-50 dark:bg-cocoa-800 text-amber-900 dark:text-amber-200">
+                        <span class="text-xs font-bold text-amber-700 dark:text-amber-300">${item.unit || 'กรัม'}</span>
+                    </div>
+                </div>
+
+                <!-- Recipe Impact Section -->
+                <div class="space-y-2 pt-1">
+                    <div class="text-xs font-bold text-bakery-800 dark:text-bakery-200 flex items-center justify-between">
+                        <span>สูตรที่ใช้วัตถุดิบนี้ (${matchingRecipes.length} สูตร):</span>
+                    </div>
+                    <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                        ${recipeListHTML}
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-3 border-t border-bakery-200/50 dark:border-cocoa-800/50 flex items-center justify-between text-[11px] text-bakery-500">
+                <span><i class="fa-solid fa-check-double text-emerald-500 mr-1"></i> ใช้คำนวณผลผลิตเรียบร้อย</span>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+function renderStockSuggestions() {
+    const grid = document.getElementById('stock-suggestions-grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    // Collect categories present in active comparison list
+    const activeCategories = new Set(activeStockCompareList.map(item => item.category));
+    const activeNames = new Set(activeStockCompareList.map(item => item.name));
+
+    // Find suggested items in stockCatalog sharing the same categories but not currently active
+    const suggestions = stockCatalog.filter(s => {
+        if (activeNames.has(s.name)) return false;
+        if (activeCategories.size === 0) return true;
+        return activeCategories.has(s.category);
+    });
+
+    if (suggestions.length === 0) {
+        grid.innerHTML = `
+            <div class="col-span-full text-center py-6 text-xs text-bakery-500 italic">
+                คุณได้เพิ่มวัตถุดิบในหมวดหมู่นี้ครบทั้งหมดแล้ว!
+            </div>
+        `;
+        return;
+    }
+
+    suggestions.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'glass-panel p-4 rounded-2xl border border-amber-400/20 space-y-2 hover:border-amber-400 transition flex flex-col justify-between';
+        
+        card.innerHTML = `
+            <div class="space-y-1">
+                <span class="text-[9px] font-bold uppercase px-2 py-0.5 bg-amber-500/15 text-amber-800 dark:text-amber-200 rounded-full">
+                    ${s.categoryName}
+                </span>
+                <h5 class="text-xs font-bold text-bakery-900 dark:text-bakery-100">${parseFlags(s.name)}</h5>
+            </div>
+            <button onclick="addSuggestedStock('${escapeQuotes(s.name)}')" class="w-full mt-2 text-[11px] font-bold py-1.5 px-3 rounded-xl bg-amber-500/20 text-amber-900 dark:text-amber-200 hover:bg-amber-500 hover:text-white transition flex items-center justify-center space-x-1">
+                <i class="fa-solid fa-plus text-[10px]"></i>
+                <span>+ เพิ่มเข้าเปรียบเทียบ</span>
+            </button>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+function renderStockRelationships() {
+    const grid = document.getElementById('stock-relationship-grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    // Calculate cross-recipe shared frequency for each ingredient across all recipes
+    const ingredientUsageMap = {};
+
+    recipes.forEach(r => {
+        r.ingredients.forEach(i => {
+            const cleanName = i.name;
+            if (!ingredientUsageMap[cleanName]) {
+                ingredientUsageMap[cleanName] = {
+                    name: cleanName,
+                    recipes: [],
+                    totalGramsPerBatch: 0
+                };
+            }
+            ingredientUsageMap[cleanName].recipes.push(r.nameTh);
+            ingredientUsageMap[cleanName].totalGramsPerBatch += i.baseGrams;
+        });
+    });
+
+    // Sort by recipe count descending
+    const sortedList = Object.values(ingredientUsageMap).sort((a, b) => b.recipes.length - a.recipes.length);
+
+    sortedList.forEach(item => {
+        const isCore = item.recipes.length >= 4;
+        const badgeColor = isCore ? 'bg-red-500/20 text-red-800 dark:text-red-200 border-red-400/30' : 'bg-blue-500/20 text-blue-800 dark:text-blue-200 border-blue-400/30';
+        
+        const card = document.createElement('div');
+        card.className = 'glass-panel p-5 rounded-2xl border space-y-3 hover:shadow-lg transition';
+        
+        card.innerHTML = `
+            <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full border ${badgeColor}">
+                    ${isCore ? '🔥 Core Dependency' : '📦 Shared Ingredient'}
+                </span>
+                <span class="text-xs font-bold text-amber-600 dark:text-amber-400">
+                    ใช้ใน ${item.recipes.length} สูตร
+                </span>
+            </div>
+            <h4 class="font-bold text-sm text-bakery-900 dark:text-bakery-100">${parseFlags(item.name)}</h4>
+            <div class="text-xs text-bakery-600 dark:text-bakery-400 space-y-1">
+                <div class="font-medium text-[11px]">สูตรที่ใช้วัตถุดิบนี้:</div>
+                <div class="flex flex-wrap gap-1">
+                    ${item.recipes.map(rName => `<span class="px-2 py-0.5 bg-bakery-100 dark:bg-cocoa-800 text-bakery-800 dark:text-bakery-200 text-[10px] rounded-md">${rName}</span>`).join('')}
+                </div>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
 }
