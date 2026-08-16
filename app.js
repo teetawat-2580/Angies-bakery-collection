@@ -16,9 +16,9 @@ const recipes = [
         sweetness: 4,
         yieldBase: 36,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
-        heroIngredient: 'Callebaut 57.9% Dark Couverture + Real Nutella Core',
+        heroIngredient: 'Callebaut 57.9% Dark Couverture 🇧🇪 + Real Nutella Core 🇮🇹',
         ingredients: [
-            { name: 'เนยชนิดเค็ม (Salted Butter)', baseGrams: 135, unit: 'กรัม' },
+            { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 135, unit: 'กรัม' },
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 105, unit: 'กรัม' },
             { name: 'น้ำตาลทรายแดงเบเกอรี่', baseGrams: 105, unit: 'กรัม' },
             { name: 'ไข่ไก่สด', baseGrams: 54, unit: 'กรัม (~1 ฟอง)' },
@@ -26,19 +26,19 @@ const recipes = [
             { name: 'เบกกิ้งโซดา', baseGrams: 1.05, unit: 'กรัม (3/4 ช้อนชา)' },
             { name: 'เกลือป่น', baseGrams: 4.5, unit: 'กรัม' },
             { name: 'ผงฟู', baseGrams: 3, unit: 'กรัม (3/4 ช้อนชา)' },
-            { name: 'Callebaut - 57.9% Dark Couverture', baseGrams: 150, unit: 'กรัม' },
+            { name: 'Callebaut - 57.9% Dark Couverture (เบลเยียม 🇧🇪)', baseGrams: 150, unit: 'กรัม' },
             { name: 'เฮเซลนัทแกะเปลือก (อบตกแต่ง)', baseGrams: 72, unit: 'กรัม (4 ซีก/ชิ้น)' },
-            { name: 'Nutella (สำหรับฉีดไส้ขณะร้อน)', baseGrams: 180, unit: 'กรัม' }
+            { name: 'Nutella 🇮🇹 (สำหรับฉีดไส้ขณะร้อน)', baseGrams: 180, unit: 'กรัม' }
         ],
         steps: [
             'อบเฮเซลนัทแกะเปลือกที่อุณหภูมิ 150-160°C เป็นเวลา 6-7 นาที จนออกสีเหลืองหอม พักไว้',
             'ตีเนยสดชนิดเค็มกับน้ำตาลทรายขาวและน้ำตาลทรายแดงให้พอเข้ากันเป็นเนื้อเดียว (อย่าตีฟู)',
             'ค่อยๆ เติมไข่ไก่ลงไปผสม ให้น้ำกับน้ำมันเข้ากัน',
-            'ร่อนแป้ง เบกกิ้งโซดา เกลือ ผงฟู ลงผสม พอเข้ากัน 80% แล้วเติม Callebaut Dark Couverture 57.9% ลงไปคลุก',
+            'ร่อนแป้ง เบกกิ้งโซดา เกลือ ผงฟู ลงผสม พอเข้ากัน 80% แล้วเติม Callebaut Dark Couverture 57.9% 🇧🇪 ลงไปคลุก',
             'นำเข้าแช่แข็งเป็นเวลา 30 นาที',
             'ปั้นแป้งเป็นก้อน ชิ้นละ 25 กรัม ด้วยที่ตักไอศกรีม นำแช่เย็นช่องธรรมดาต่ออีก 30 นาที',
             'เข้าอบที่อุณหภูมิ 150-160°C เป็นเวลา 10-12 นาที',
-            'นำออกจากเตาอบ ฉีด Nutella เข้าไปตรงกลางคุกกี้ทันทีขณะร้อนๆ แล้ววางตกแต่งด้วยเฮเซลนัท 4 ซีก'
+            'นำออกจากเตาอบ ฉีด Nutella 🇮🇹 เข้าไปตรงกลางคุกกี้ทันทีขณะร้อนๆ แล้ววางตกแต่งด้วยเฮเซลนัท 4 ซีก'
         ]
     },
     {
@@ -50,25 +50,25 @@ const recipes = [
         sweetness: 2,
         yieldBase: 27,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
-        heroIngredient: 'Cacao Barry Extra Brute & Mi-Amère 58% + Flaky Sea Salt',
+        heroIngredient: 'Cacao Barry Extra Brute 🇫🇷 & Mi-Amère 58% 🇫🇷 + Flaky Sea Salt',
         ingredients: [
-            { name: 'เนยชนิดเค็ม (Salted Butter)', baseGrams: 150, unit: 'กรัม' },
+            { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 150, unit: 'กรัม' },
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 93, unit: 'กรัม' },
             { name: 'น้ำตาลทรายแดงเบเกอรี่', baseGrams: 120, unit: 'กรัม' },
             { name: 'กากน้ำตาล (Molasses)', baseGrams: 9, unit: 'กรัม' },
             { name: 'ไข่ไก่สด', baseGrams: 54, unit: 'กรัม (~1 ฟอง)' },
             { name: 'แป้งสาลีอเนกประสงค์', baseGrams: 171, unit: 'กรัม' },
-            { name: 'ผงโกโก้ Cacao Barry Extra Brute (ฝรั่งเศส)', baseGrams: 45, unit: 'กรัม' },
+            { name: 'ผงโกโก้ Cacao Barry Extra Brute (ฝรั่งเศส 🇫🇷)', baseGrams: 45, unit: 'กรัม' },
             { name: 'เบกกิ้งโซดา', baseGrams: 2.1, unit: 'กรัม (1/2 ช้อนชา)' },
-            { name: 'Cacao Barry Mi-Amère 58% (ฝรั่งเศส)', baseGrams: 100, unit: 'กรัม' },
-            { name: 'ชิ้นน้ำตาลทอฟฟี่เนยสด (Toffee)', baseGrams: 60, unit: 'กรัม' },
+            { name: 'Cacao Barry Mi-Amère 58% (ฝรั่งเศส 🇫🇷)', baseGrams: 100, unit: 'กรัม' },
+            { name: 'ชิ้นน้ำตาลทอฟฟี่เนยสด (Toffee 🇫🇷)', baseGrams: 60, unit: 'กรัม' },
             { name: 'ดอกเกลือ (Flaky Sea Salt)', baseGrams: 3, unit: 'กรัม (สำหรับโรยหน้า)' }
         ],
         steps: [
             'ผสมเนยสด น้ำตาลทรายแดง กากน้ำตาล น้ำตาลทรายขาว และเกลือ ให้เข้ากันจนเนียนเป็นเนื้อครีม',
             'ค่อยๆ เติมไข่ไก่ลงไปผสมจนเข้ากันดี',
-            'ร่อนแป้งสาลี พร้อมกับเบกกิ้งโซดาและผงโกโก้ Cacao Barry Extra Brute',
-            'ใส่ส่วนผสมแห้งลงในส่วนเนย ผสมเข้ากัน แล้วเติม Cacao Barry 58% ลงไปผสม',
+            'ร่อนแป้งสาลี พร้อมกับเบกกิ้งโซดาและผงโกโก้ Cacao Barry Extra Brute 🇫🇷',
+            'ใส่ส่วนผสมแห้งลงในส่วนเนย ผสมเข้ากัน แล้วเติม Cacao Barry 58% 🇫🇷 ลงไปผสม',
             'นำเข้าแช่เย็น 30 นาที แล้วปั้นก้อนละ 25 กรัม',
             'เข้าอบที่อุณหภูมิ 160°C เป็นเวลา 8 นาที จากนั้นวางชิ้นน้ำตาลทอฟฟี่ข้างบน แล้วอบต่ออีก 2-3 นาทีจนทอฟฟี่เยิ้ม',
             'หลังอบเสร็จ โรยหน้าคุกกี้ด้วยดอกเกลือทันทีขณะที่ยังร้อนๆ'
@@ -83,16 +83,16 @@ const recipes = [
         sweetness: 3,
         yieldBase: 22,
         yieldUnit: 'ชิ้น',
-        heroIngredient: 'Pure French Cocoa + Semi-Sweet Chocolate Chips',
+        heroIngredient: 'Pure French Cocoa 🇫🇷 + Semi-Sweet Chocolate Chips',
         ingredients: [
-            { name: 'เนยชนิดเค็ม (Salted Butter)', baseGrams: 115, unit: 'กรัม' },
+            { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 115, unit: 'กรัม' },
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 80, unit: 'กรัม' },
             { name: 'น้ำตาลทรายแดงเบเกอรี่', baseGrams: 80, unit: 'กรัม' },
             { name: 'ไข่ไก่เบอร์ 2', baseGrams: 50, unit: 'กรัม (1 ฟอง)' },
-            { name: 'Vanilla Extract', baseGrams: 5, unit: 'กรัม (1 ช้อนชา)' },
+            { name: 'Vanilla Extract (มาดากัสการ์ 🇲🇬)', baseGrams: 5, unit: 'กรัม (1 ช้อนชา)' },
             { name: 'สีแดงสด (Food Color)', baseGrams: 10, unit: 'กรัม (2 ช้อนชา)' },
             { name: 'แป้งว่าว (สาลีอเนกประสงค์)', baseGrams: 180, unit: 'กรัม' },
-            { name: 'ผงโกโก้พรีเมียม', baseGrams: 20, unit: 'กรัม' },
+            { name: 'ผงโกโก้พรีเมียม Cacao Barry (ฝรั่งเศส 🇫🇷)', baseGrams: 20, unit: 'กรัม' },
             { name: 'เบกกิ้งโซดา', baseGrams: 0.7, unit: 'กรัม (1/2 ช้อนชา)' },
             { name: 'เกลือป่น', baseGrams: 1.5, unit: 'กรัม (1/4 ช้อนชา)' },
             { name: 'เซมิ-สวีทช็อกโกแลตชิพส์ (Semi-Sweet Choc Chips)', baseGrams: 120, unit: 'กรัม' }
@@ -100,8 +100,8 @@ const recipes = [
         steps: [
             'ตีเนยสดด้วยเครื่องให้พอแตกตัว',
             'ใส่น้ำตาลทรายแดงและขาว ตีด้วยสปีดสูงสุด 3 นาที และปาดโถ',
-            'ใส่ไข่ วนิลา และสีแดงสด เข้าด้วยกันด้วยสปีดกลาง',
-            'ร่อนแป้ง โกโก้ เกลือป่น เบกกิ้งโซดา ผสมเข้าด้วยกันด้วยสปีดต่ำ',
+            'ใส่ไข่ วนิลา 🇲🇬 และสีแดงสด เข้าด้วยกันด้วยสปีดกลาง',
+            'ร่อนแป้ง โกโก้ฝรั่งเศส 🇫🇷 เกลือป่น เบกกิ้งโซดา ผสมเข้าด้วยกันด้วยสปีดต่ำ',
             'นำช็อกโกแลตชิพส์ใส่ ผสมด้วย Spatula แล้วปิดด้วย Wrap',
             'นำเข้าตู้เย็นช่องธรรมดา 2 ชม. ขึ้นไป หรือช่องฟรีซ 20-40 นาที',
             'ใช้ที่ตักไอศกรีมเล็ก วางบนถาดอบคุกกี้ วางเรียงกัน 8 ชิ้น',
@@ -117,26 +117,26 @@ const recipes = [
         sweetness: 2,
         yieldBase: 30,
         yieldUnit: 'ชิ้น (ก้อนละ 60g บิ๊กไซส์)',
-        heroIngredient: 'Ground Pistachio + Homemade Praline + Ruby Choc',
+        heroIngredient: 'Ground Pistachio + Homemade Praline + Ruby Choc 🇧🇪',
         ingredients: [
-            { name: 'เนยสด (Butter)', baseGrams: 132, unit: 'กรัม' },
+            { name: 'เนยสด (Butter 🇫🇷)', baseGrams: 132, unit: 'กรัม' },
             { name: 'น้ำตาลทรายแดงเบเกอรี่', baseGrams: 150, unit: 'กรัม' },
             { name: 'พิสตาชิโอปั่นละเอียด (Ground Pistachio)', baseGrams: 66, unit: 'กรัม' },
             { name: 'เกลือป่น', baseGrams: 1.5, unit: 'กรัม' },
             { name: 'ไข่ไก่สด', baseGrams: 60, unit: 'กรัม (1 ฟองใหญ่)' },
             { name: 'แป้งว่าว (สาลีอเนกประสงค์)', baseGrams: 195, unit: 'กรัม' },
             { name: 'ผงฟู', baseGrams: 6, unit: 'กรัม' },
-            { name: 'ช็อกโกแลตชิป RUBY', baseGrams: 150, unit: 'กรัม' },
+            { name: 'ช็อกโกแลตชิป RUBY Callebaut (เบลเยียม 🇧🇪)', baseGrams: 150, unit: 'กรัม' },
             { name: 'ถั่วพิสตาชิโอ (เม็ดอบแล้วบดแต่งหน้า)', baseGrams: 54, unit: 'กรัม' },
             { name: 'ไส้พราลีนพิสตาชิโอทำเอง (Homemade Praline)', baseGrams: 120, unit: 'กรัม' }
         ],
         steps: [
-            'ผสมเนย น้ำตาลทรายแดง พิสตาชิโอบด และเกลือ ให้เป็นเนื้อครีม',
+            'ผสมเนยสด 🇫🇷 น้ำตาลทรายแดง พิสตาชิโอบด และเกลือ ให้เป็นเนื้อครีม',
             'ค่อยๆ เติมไข่ลงไปผสม แล้วร่อนแป้งพร้อมผงฟูใส่ลงไป',
-            'ใส่ช็อกโกแลตชิปรูบี้และถั่วพิสตาชิโออบบดลงไปผสม',
+            'ใส่ช็อกโกแลตชิปรูบี้ 🇧🇪 และถั่วพิสตาชิโออบบดลงไปผสม',
             'นำเข้าแช่เย็น 30 นาที แบ่งแป้งโดชิ้นละ 60 กรัม คลึงกลมและกดบางบนถาดอบ',
             'เข้าอบที่อุณหภูมิ 160°C เป็นเวลา 8 นาที จากนั้นขึ้นรูปและอบต่ออีก 6 นาที',
-            'หลังอบเสร็จ ราดไส้พราลีนพิสตาชิโอเคี่ยวเองสดๆ และโรยช็อกโกแลตชิปรูบี้ขณะร้อน'
+            'หลังอบเสร็จ ราดไส้พราลีนพิสตาชิโอเคี่ยวเองสดๆ และโรยช็อกโกแลตชิปรูบี้ 🇧🇪 ขณะร้อน'
         ]
     },
     {
@@ -148,9 +148,9 @@ const recipes = [
         sweetness: 3,
         yieldBase: 36,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
-        heroIngredient: 'Callebaut Ruby Choc 33.6% RB1 & Milk Couverture',
+        heroIngredient: 'Callebaut Ruby Choc 33.6% RB1 🇧🇪 & Milk Couverture 🇧🇪',
         ingredients: [
-            { name: 'เนยชนิดเค็ม (Salted Butter)', baseGrams: 135, unit: 'กรัม' },
+            { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 135, unit: 'กรัม' },
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 105, unit: 'กรัม' },
             { name: 'น้ำตาลทรายแดงเบเกอรี่', baseGrams: 105, unit: 'กรัม' },
             { name: 'ไข่ไก่สด', baseGrams: 66, unit: 'กรัม' },
@@ -158,13 +158,13 @@ const recipes = [
             { name: 'เบกกิ้งโซดา', baseGrams: 2.1, unit: 'กรัม (1+1/2 ช้อนชา)' },
             { name: 'เกลือป่น', baseGrams: 4.5, unit: 'กรัม' },
             { name: 'ผงฟู', baseGrams: 3, unit: 'กรัม (3/4 ช้อนชา)' },
-            { name: 'Callebaut Ruby Choc 33.6% RB1 (เบลเยียม)', baseGrams: 84, unit: 'กรัม' },
-            { name: 'Callebaut Milk Couverture 33.6% (เบลเยียม)', baseGrams: 84, unit: 'กรัม' }
+            { name: 'Callebaut Ruby Choc 33.6% RB1 (เบลเยียม 🇧🇪)', baseGrams: 84, unit: 'กรัม' },
+            { name: 'Callebaut Milk Couverture 33.6% (เบลเยียม 🇧🇪)', baseGrams: 84, unit: 'กรัม' }
         ],
         steps: [
             'ตีเนยกับน้ำตาลให้เข้ากันจนเนียนเป็นเนื้อเดียว (อย่าตีฟู)',
             'ค่อยๆ เติมไข่ลงไปผสมให้เข้ากัน',
-            'ผสมส่วนแป้ง+ของผง ร่อนเข้ากัน 80% แล้วเติมช็อกโกแลตชิป Ruby และ Milk Couverture ลงไป',
+            'ผสมส่วนแป้ง+ของผง ร่อนเข้ากัน 80% แล้วเติมช็อกโกแลตชิป Ruby 🇧🇪 และ Milk Couverture 🇧🇪 ลงไป',
             'แช่แข็ง 30 นาที แล้วปั้นก้อนละ 25 กรัม แช่เย็นช่องธรรมดาต่อ 30 นาที',
             'เข้าอบที่อุณหภูมิ 150-160°C เป็นเวลา 10-12 นาที'
         ]
@@ -178,24 +178,24 @@ const recipes = [
         sweetness: 3,
         yieldBase: 36,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
-        heroIngredient: 'Pure Matcha + Callebaut White Couverture 28%',
+        heroIngredient: 'Pure Matcha 🇯🇵 + Callebaut White Couverture 28% 🇧🇪',
         ingredients: [
-            { name: 'เนยชนิดเค็ม (มีเกลืออยู่ 2.7g)', baseGrams: 180, unit: 'กรัม' },
+            { name: 'เนยชนิดเค็ม (มีเกลืออยู่ 2.7g) 🇫🇷', baseGrams: 180, unit: 'กรัม' },
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 140, unit: 'กรัม' },
             { name: 'น้ำตาลทรายแดงเบเกอรี่', baseGrams: 140, unit: 'กรัม' },
             { name: 'ไข่ไก่สด', baseGrams: 108, unit: 'กรัม (~2 ฟอง)' },
             { name: 'แป้งสาลีอเนกประสงค์', baseGrams: 300, unit: 'กรัม' },
-            { name: 'ผงมัทฉะพรีเมียม (Matcha Powder)', baseGrams: 24, unit: 'กรัม' },
+            { name: 'ผงมัทฉะพรีเมียม (Matcha Powder ญี่ปุ่น 🇯🇵)', baseGrams: 24, unit: 'กรัม' },
             { name: 'เบกกิ้งโซดา', baseGrams: 1.4, unit: 'กรัม (1 ช้อนชา)' },
             { name: 'เกลือป่น', baseGrams: 2.25, unit: 'กรัม (3/8 ช้อนชา)' },
             { name: 'ผงฟู', baseGrams: 4, unit: 'กรัม (1 ช้อนชา)' },
-            { name: 'Callebaut - White Couverture 28.0% (เบลเยียม)', baseGrams: 100, unit: 'กรัม' },
-            { name: 'แมคคาเดเมีย เม็ดซีก (อบแล้ว)', baseGrams: 18.8, unit: 'กรัม (4 ซีก/ชิ้น)' }
+            { name: 'Callebaut - White Couverture 28.0% (เบลเยียม 🇧🇪)', baseGrams: 100, unit: 'กรัม' },
+            { name: 'แมคคาเดเมีย เม็ดซีก (ออสเตรเลีย 🇦🇺 อบแล้ว)', baseGrams: 18.8, unit: 'กรัม (4 ซีก/ชิ้น)' }
         ],
         steps: [
-            'อบถั่ว Macadamia ที่อุณหภูมิ 150-160°C ประมาณ 6-7 นาที พอเหลืองหอม',
+            'อบถั่ว Macadamia 🇦🇺 ที่อุณหภูมิ 150-160°C ประมาณ 6-7 นาที พอเหลืองหอม',
             'ตีเนยและน้ำตาลให้เข้ากันจนเนียน (อย่าตีฟู) เติมไข่ลงไปผสม',
-            'ร่อนแป้ง ผงมัทฉะ เบกกิ้งโซดา เกลือ ผงฟู ผสมเข้าด้วยกัน แล้วใส่ Callebaut White Couverture 28%',
+            'ร่อนแป้ง ผงมัทฉะ 🇯🇵 เบกกิ้งโซดา เกลือ ผงฟู ผสมเข้าด้วยกัน แล้วใส่ Callebaut White Couverture 28% 🇧🇪',
             'แช่แข็ง 30 นาที ปั้นก้อนละ 25g แล้วแช่เย็น 30 นาที',
             'อบที่ 150-160°C เป็นเวลา 10-12 นาที นำออกมารออุ่น ตกแต่งด้วยแมคคาเดเมียชิ้นละ 4 ซีก'
         ]
@@ -209,24 +209,24 @@ const recipes = [
         sweetness: 3,
         yieldBase: 39,
         yieldUnit: 'ชิ้น',
-        heroIngredient: 'Crispy Cornflakes + Whole Milk Powder + Cranberries',
+        heroIngredient: 'Crispy Cornflakes + Whole Milk Powder + Cranberries 🇺🇸',
         ingredients: [
-            { name: 'เนยชนิดเค็ม (Salted Butter)', baseGrams: 225, unit: 'กรัม' },
+            { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 225, unit: 'กรัม' },
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 125, unit: 'กรัม' },
             { name: 'ไข่ไก่เบอร์ 2', baseGrams: 51, unit: 'กรัม (1 ฟอง)' },
-            { name: 'Vanilla Extract', baseGrams: 5, unit: 'กรัม (1 ช้อนชา)' },
+            { name: 'Vanilla Extract (มาดากัสการ์ 🇲🇬)', baseGrams: 5, unit: 'กรัม (1 ช้อนชา)' },
             { name: 'แป้งบัวแดง (แป้งเค้ก)', baseGrams: 300, unit: 'กรัม' },
             { name: 'ผงฟูดับเบิ้ลแอคชั่น', baseGrams: 4, unit: 'กรัม (1 ช้อนชา)' },
             { name: 'เกลือปรุงทิพย์', baseGrams: 1.5, unit: 'กรัม (1/4 ช้อนชา)' },
             { name: 'หัวนมผง 100%', baseGrams: 15, unit: 'กรัม (3 ช้อนชา)' },
             { name: 'เม็ดมะม่วงหิมพานต์ซีกบดหยาบ (อบแล้ว)', baseGrams: 100, unit: 'กรัม' },
-            { name: 'แครนเบอร์รี่ แช่น้ำ 10 นาที', baseGrams: 100, unit: 'กรัม' },
+            { name: 'แครนเบอร์รี่ (อเมริกา 🇺🇸 แช่น้ำ 10 นาที)', baseGrams: 100, unit: 'กรัม' },
             { name: 'Cornflakes เต็มแผ่น (สำหรับคลุก)', baseGrams: 150, unit: 'กรัม' }
         ],
         steps: [
-            'อบเม็ดมะม่วงหิมพานต์ แช่แครนเบอร์รี่ในน้ำ 10 นาที และบดคอร์นเฟลกบางส่วนให้แตก',
-            'ตีเนยกับน้ำตาลทรายขาวด้วยสปีดสูงสุด 3 นาที ปาดโถ เติมไข่กับวนิลาด้วยสปีดกลาง',
-            'ร่อนแป้ง เกลือ ผงฟู หัวนมผง ผสมเข้ากัน แล้วใส่เม็ดมะม่วง แครนเบอร์รี่ ผสมด้วย Spatula',
+            'อบเม็ดมะม่วงหิมพานต์ แช่แครนเบอร์รี่ 🇺🇸 ในน้ำ 10 นาที และบดคอร์นเฟลกบางส่วนให้แตก',
+            'ตีเนยกับน้ำตาลทรายขาวด้วยสปีดสูงสุด 3 นาที ปาดโถ เติมไข่กับวนิลา 🇲🇬 ด้วยสปีดกลาง',
+            'ร่อนแป้ง เกลือ ผงฟู หัวนมผง ผสมเข้ากัน แล้วใส่เม็ดมะม่วง แครนเบอร์รี่ 🇺🇸 ผสมด้วย Spatula',
             'ใช้ที่ตักไอศกรีมตักโด คลุกด้วย Cornflakes เต็มแผ่นให้ทั่ว วางบนถาดอบกดให้แบนเล็กน้อย',
             'ตั้งเตาอบ 180°C (พัดลม 150-160°C) อบ 12-15 นาที'
         ]
@@ -259,18 +259,18 @@ const recipes = [
     {
         id: 'sub-toffee',
         name: 'Sub-Recipe: Handcrafted Butter Toffee',
-        nameTh: 'สูตรน้ำตาลทอฟฟี่เนยสดกรอบ (Butter Toffee)',
+        nameTh: 'สูตรน้ำตาลทอฟฟี่เนยสดกรอบ (Butter Toffee 🇫🇷)',
         category: 'sub',
         categoryName: 'ซอส & ท็อปปิ้งทำเอง',
         sweetness: 5,
         yieldBase: 140,
         yieldUnit: 'กรัม',
-        heroIngredient: 'Glucose Syrup + Whipping Cream + Vanilla + Sea Salt',
+        heroIngredient: 'Glucose Syrup + Whipping Cream 🇫🇷 + Vanilla 🇲🇬 + Sea Salt',
         ingredients: [
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 77.5, unit: 'กรัม' },
             { name: 'น้ำเชื่อมกลูโคส (Glucose Syrup)', baseGrams: 13.75, unit: 'กรัม' },
-            { name: 'Whipping Cream แท้', baseGrams: 46.25, unit: 'กรัม' },
-            { name: 'Vanilla Extract', baseGrams: 0.6, unit: 'กรัม (1/8 ช้อนชา)' },
+            { name: 'Whipping Cream แท้ (ฝรั่งเศส 🇫🇷)', baseGrams: 46.25, unit: 'กรัม' },
+            { name: 'Vanilla Extract (มาดากัสการ์ 🇲🇬)', baseGrams: 0.6, unit: 'กรัม (1/8 ช้อนชา)' },
             { name: 'ดอกเกลือ (Flaky Sea Salt)', baseGrams: 0.75, unit: 'กรัม' }
         ],
         steps: [
@@ -316,7 +316,7 @@ const dialogues = {
         {
             title: 'เรื่องเล่าชูวัตถุดิบระดับโลก (World-Class Chocolate Story)',
             tag: 'วัตถุดิบนำเข้า',
-            text: '"คุกกี้ร้านเราพิถีพิถันเรื่องวัตถุดิบมากครับ เราเลือกใช้ผงโกโก้ Cacao Barry Extra Brute และดาร์กช็อกโกแลต 58% นำเข้าจากฝรั่งเศส คู่กับ Callebaut White & Ruby ช็อกโกแลตแท้จากเบลเยียม เนยสดแท้ 100% ไร้ไขมันทรานส์ รสชาติจึงเข้มข้นกลมกล่อมไม่เหมือนใครครับ"',
+            text: '"คุกกี้ร้านเราพิถีพิถันเรื่องวัตถุดิบมากครับ เราเลือกใช้ผงโกโก้ Cacao Barry Extra Brute 🇫🇷 และดาร์กช็อกโกแลต 58% 🇫🇷 นำเข้าจากฝรั่งเศส คู่กับ Callebaut White & Ruby 🇧🇪 ช็อกโกแลตแท้จากเบลเยียม เนยสดแท้ 100% 🇫🇷 ไร้ไขมันทรานส์ รสชาติจึงเข้มข้นกลมกล่อมไม่เหมือนใครครับ"',
             tip: 'อธิบายเมื่อลูกค้าถามถึงความคุ้มค่าหรือที่มาของรสชาติ'
         }
     ],
@@ -324,7 +324,7 @@ const dialogues = {
         {
             title: 'Q1: คุกกี้หวานมากไหม? (Sweetness Clarification)',
             tag: 'ตอบเรื่องความหวาน',
-            text: '"เราปรับสูตรให้หวานน้อยกำลังดีครับ! อย่างตัว Dark Chocolate 58% หรือ Pistachio จะเน้นความเข้มข้นของโกโก้ฝรั่งเศสและถั่วมันหอม นำความหวานครับ แต่ถ้าชอบไส้เยิ้มหวานนุ่มละมุน แนะนำเป็น Nutella ครับ ทานคู่กาแฟดำอร่อยเป๊ะมากครับ"',
+            text: '"เราปรับสูตรให้หวานน้อยกำลังดีครับ! อย่างตัว Dark Chocolate 58% 🇫🇷 หรือ Pistachio จะเน้นความเข้มข้นของโกโก้ฝรั่งเศส 🇫🇷 และถั่วมันหอม นำความหวานครับ แต่ถ้าชอบไส้เยิ้มหวานนุ่มละมุน แนะนำเป็น Nutella 🇮🇹 ครับ ทานคู่กาแฟดำอร่อยเป๊ะมากครับ"',
             tip: 'อ้างอิงระดับความหวาน Sweetness Meter 1-5 บนป้ายหน้าร้าน'
         },
         {
@@ -342,13 +342,13 @@ const dialogues = {
         {
             title: 'Q4: ใช้เนยอะไรทำ? มีไขมันทรานส์ หรือใช้น้ำมันพืช/มาการีนไหม?',
             tag: 'เนยสดแท้ 100% ไร้ไขมันทรานส์',
-            text: '"ร้านเราใช้ Pure Salted Butter เนยสดแท้ 100% ปราศจากมาการีน และไร้ไขมันทรานส์ (0% Trans Fat) 100% ครับ เราพิถีพิถันเรื่องความปลอดภัยและสุขภาพของลูกค้า ความหอมมันทั้งหมดมาจากเนยนมสดธรรมชาติแท้ๆ ครับ"',
+            text: '"ร้านเราใช้ Pure Salted Butter เนยสดแท้ 100% 🇫🇷 ปราศจากมาการีน และไร้ไขมันทรานส์ (0% Trans Fat) 100% ครับ เราพิถีพิถันเรื่องความปลอดภัยและสุขภาพของลูกค้า ความหอมมันทั้งหมดมาจากเนยนมสดธรรมชาติแท้ๆ ครับ"',
             tip: 'เน้นย้ำเรื่องสุขภาพและความปลอดภัย 0% Trans Fat'
         },
         {
             title: 'Q5: ช็อกโกแลตที่ใช้เป็นช็อกโกแลตแท้ประเภทไหน?',
             tag: 'กูแวร์ตัวร์พรีเมียม',
-            text: '"เราใช้ช็อกโกแลตแท้กูแวร์ตัวร์ (Couverture Chocolate) นำเข้า 100% จาก Cacao Barry ประเทศฝรั่งเศส และ Callebaut ประเทศเบลเยียมครับ มีปริมาณโกโก้บัตเตอร์แท้สูง ละลายในปาก มอบสัมผัสที่หอมนุ่มลึก ไม่กระด้างเหมือนช็อกโกแลตสังเคราะห์ครับ"',
+            text: '"เราใช้ช็อกโกแลตแท้กูแวร์ตัวร์ (Couverture Chocolate) นำเข้า 100% จาก Cacao Barry ประเทศฝรั่งเศส 🇫🇷 และ Callebaut ประเทศเบลเยียม 🇧🇪 ครับ มีปริมาณโกโก้บัตเตอร์แท้สูง ละลายในปาก มอบสัมผัสที่หอมนุ่มลึก ไม่กระด้างเหมือนช็อกโกแลตสังเคราะห์ครับ"',
             tip: 'สร้างความมั่นใจในคุณภาพวัตถุดิบนำเข้าระดับโลก'
         },
         {
