@@ -16,6 +16,7 @@ const recipes = [
         sweetness: 4,
         yieldBase: 36,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
+        origins: ['🇫🇷 ฝรั่งเศส', '🇧🇪 เบลเยียม', '🇮🇹 อิตาลี'],
         heroIngredient: 'Callebaut 57.9% Dark Couverture 🇧🇪 + Real Nutella Core 🇮🇹',
         ingredients: [
             { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 135, unit: 'กรัม' },
@@ -50,6 +51,7 @@ const recipes = [
         sweetness: 2,
         yieldBase: 27,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
+        origins: ['🇫🇷 ฝรั่งเศส'],
         heroIngredient: 'Cacao Barry Extra Brute 🇫🇷 & Mi-Amère 58% 🇫🇷 + Flaky Sea Salt',
         ingredients: [
             { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 150, unit: 'กรัม' },
@@ -83,6 +85,7 @@ const recipes = [
         sweetness: 3,
         yieldBase: 22,
         yieldUnit: 'ชิ้น',
+        origins: ['🇫🇷 ฝรั่งเศส', '🇲🇬 มาดากัสการ์'],
         heroIngredient: 'Pure French Cocoa 🇫🇷 + Semi-Sweet Chocolate Chips',
         ingredients: [
             { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 115, unit: 'กรัม' },
@@ -117,6 +120,7 @@ const recipes = [
         sweetness: 2,
         yieldBase: 30,
         yieldUnit: 'ชิ้น (ก้อนละ 60g บิ๊กไซส์)',
+        origins: ['🇫🇷 ฝรั่งเศส', '🇧🇪 เบลเยียม'],
         heroIngredient: 'Ground Pistachio + Homemade Praline + Ruby Choc 🇧🇪',
         ingredients: [
             { name: 'เนยสด (Butter 🇫🇷)', baseGrams: 132, unit: 'กรัม' },
@@ -148,6 +152,7 @@ const recipes = [
         sweetness: 3,
         yieldBase: 36,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
+        origins: ['🇫🇷 ฝรั่งเศส', '🇧🇪 เบลเยียม'],
         heroIngredient: 'Callebaut Ruby Choc 33.6% RB1 🇧🇪 & Milk Couverture 🇧🇪',
         ingredients: [
             { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 135, unit: 'กรัม' },
@@ -178,6 +183,7 @@ const recipes = [
         sweetness: 3,
         yieldBase: 36,
         yieldUnit: 'ชิ้น (ก้อนละ 25g)',
+        origins: ['🇫🇷 ฝรั่งเศส', '🇯🇵 ญี่ปุ่น', '🇧🇪 เบลเยียม', '🇦🇺 ออสเตรเลีย'],
         heroIngredient: 'Pure Matcha 🇯🇵 + Callebaut White Couverture 28% 🇧🇪',
         ingredients: [
             { name: 'เนยชนิดเค็ม (มีเกลืออยู่ 2.7g) 🇫🇷', baseGrams: 180, unit: 'กรัม' },
@@ -209,6 +215,7 @@ const recipes = [
         sweetness: 3,
         yieldBase: 39,
         yieldUnit: 'ชิ้น',
+        origins: ['🇫🇷 ฝรั่งเศส', '🇲🇬 มาดากัสการ์', '🇺🇸 อเมริกา'],
         heroIngredient: 'Crispy Cornflakes + Whole Milk Powder + Cranberries 🇺🇸',
         ingredients: [
             { name: 'เนยชนิดเค็ม (Salted Butter 🇫🇷)', baseGrams: 225, unit: 'กรัม' },
@@ -240,6 +247,7 @@ const recipes = [
         sweetness: 2,
         yieldBase: 210,
         yieldUnit: 'กรัม',
+        origins: [],
         heroIngredient: '100% Pure Pistachio + Rice Bran Oil + Whole Milk Powder',
         ingredients: [
             { name: 'ถั่วพิสตาชิโอ (ปั่นละเอียด)', baseGrams: 125, unit: 'กรัม' },
@@ -265,6 +273,7 @@ const recipes = [
         sweetness: 5,
         yieldBase: 140,
         yieldUnit: 'กรัม',
+        origins: ['🇫🇷 ฝรั่งเศส', '🇲🇬 มาดากัสการ์'],
         heroIngredient: 'Glucose Syrup + Whipping Cream 🇫🇷 + Vanilla 🇲🇬 + Sea Salt',
         ingredients: [
             { name: 'น้ำตาลทรายขาวเบเกอรี่', baseGrams: 77.5, unit: 'กรัม' },
@@ -450,10 +459,15 @@ function renderFormulas() {
         
         let ingredientsHTML = recipe.ingredients.map(ing => {
             const scaledGrams = (ing.baseGrams * currentScale).toLocaleString('th-TH', { maximumFractionDigits: 1 });
+            const hasFlag = /🇫🇷|🇧🇪|🇯🇵|🇮🇹|🇲🇬|🇺🇸|🇦🇺/.test(ing.name);
+            const nameStyle = hasFlag 
+                ? 'font-bold text-bakery-900 dark:text-bakery-100' 
+                : 'font-medium';
+            
             return `
-                <tr class="border-b border-bakery-200/50 dark:border-cocoa-800/50 text-xs">
-                    <td class="py-1.5 px-2 font-medium">${ing.name}</td>
-                    <td class="py-1.5 px-2 text-right font-bold text-amber-700 dark:text-amber-300">${scaledGrams} ${ing.unit}</td>
+                <tr class="border-b border-bakery-200/50 dark:border-cocoa-800/50 text-xs ${hasFlag ? 'bg-amber-500/10 dark:bg-amber-400/10' : ''}">
+                    <td class="py-1.5 px-2 ${nameStyle}">${ing.name}</td>
+                    <td class="py-1.5 px-2 text-right font-bold text-amber-700 dark:text-amber-300 whitespace-nowrap">${scaledGrams} ${ing.unit}</td>
                 </tr>
             `;
         }).join('');
@@ -464,6 +478,12 @@ function renderFormulas() {
                 <span>${step}</span>
             </li>
         `).join('');
+
+        const originsBadgeHTML = recipe.origins && recipe.origins.length > 0 ? `
+            <div class="flex flex-wrap gap-1.5 pt-1">
+                ${recipe.origins.map(o => `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-500/15 text-amber-900 dark:text-amber-200 border border-amber-400/30 shadow-sm">📍 ${o}</span>`).join('')}
+            </div>
+        ` : '';
 
         const card = document.createElement('div');
         card.className = 'recipe-card-gradient rounded-3xl p-6 shadow-lg border border-bakery-300/40 dark:border-cocoa-700/40 space-y-4 hover:shadow-2xl transition duration-300 flex flex-col justify-between';
@@ -484,6 +504,8 @@ function renderFormulas() {
                     <div class="text-xs text-amber-700 dark:text-amber-400 font-medium">${recipe.nameTh}</div>
                 </div>
 
+                ${originsBadgeHTML}
+
                 <div class="bg-amber-500/10 p-2.5 rounded-xl border border-amber-400/20 text-xs font-medium text-amber-900 dark:text-amber-200 flex items-center justify-between">
                     <span><i class="fa-solid fa-cookie mr-1.5"></i> จำนวนผลลัพธ์ (Yield):</span>
                     <span class="font-bold text-sm">${scaledYield} ${recipe.yieldUnit}</span>
@@ -495,7 +517,10 @@ function renderFormulas() {
 
                 <!-- Ingredients Table -->
                 <div class="space-y-1">
-                    <div class="text-xs font-bold text-bakery-800 dark:text-bakery-200 border-b border-amber-400/30 pb-1">ส่วนผสม (Scaled ${currentScale}x):</div>
+                    <div class="text-xs font-bold text-bakery-800 dark:text-bakery-200 border-b border-amber-400/30 pb-1 flex items-center justify-between">
+                        <span>ส่วนผสม (Scaled ${currentScale}x):</span>
+                        <span class="text-[10px] font-normal text-amber-700 dark:text-amber-300">🌍 มี symbol ประเทศกำกับ</span>
+                    </div>
                     <table class="w-full">
                         <tbody>
                             ${ingredientsHTML}
